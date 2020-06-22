@@ -1,10 +1,6 @@
 function search(arr, n){
-  if(n < arr[0] || n > arr[arr.length - 1]) {
-  	return -1;
-  }
-
+	// console.log('arr', arr, 'n', n);
   let L = 0, R = arr.length - 1;
-
   while(L <= R) {
   	let M = Math.floor((L + R) / 2);
   	if(n === arr[M]) {
@@ -14,7 +10,22 @@ function search(arr, n){
   	} else {
   		L = M + 1;
   	}
-  }
+	}
+	return -1;
 }
-console.log(search([1, 3, 10, 14, 39], 14),
-search([1, 3, 10, 14, 39], 299));
+console.log(search(createRandomArr(10), 14),
+search(createRandomArr(15), 299));
+
+function createRandomArr(len) {
+	let arr = [];
+	for (let i = 0; i < len; i++) {
+		let ran = Math.floor(Math.random() * 100);
+		if(arr.indexOf(ran) === -1) {
+			arr.push(ran);
+		}
+	}
+	return arr.sort((a, b) => a - b);
+}
+
+// console.log(search(createRandomArr(10), 23));
+// console.log(search(createRandomArr(16),5));
