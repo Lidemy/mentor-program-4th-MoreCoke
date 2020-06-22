@@ -1,5 +1,5 @@
 function search(arr, n){
-	// console.log('arr', arr, 'n', n);
+	console.log('arr', arr, 'n', n);
   let L = 0, R = arr.length - 1;
   while(L <= R) {
   	let M = Math.floor((L + R) / 2);
@@ -18,10 +18,12 @@ search(createRandomArr(15), 299));
 
 function createRandomArr(len) {
 	let arr = [];
-	for (let i = 0; i < len; i++) {
+	let i = 0;
+	while (i < len) {
 		let ran = Math.floor(Math.random() * 100);
 		if(arr.indexOf(ran) === -1) {
 			arr.push(ran);
+			i++;
 		}
 	}
 	return arr.sort((a, b) => a - b);
