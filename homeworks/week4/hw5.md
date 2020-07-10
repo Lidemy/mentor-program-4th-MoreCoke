@@ -45,16 +45,15 @@ const url = 'https://restaurant';
 request(
   url,
   (error, response, body) => {
-    const data = JSON.parse(body);
     if (error) {
       console.log('status code: ', response.statusCode);
     }
-    console.log(data);
+    console.log(body);
   },
 );
 ```
 
-Response ( from `console.log(data);` )
+Response ( from `console.log(body);` )
 
 ```json
 [
@@ -94,16 +93,15 @@ const url = 'GET https://restaurant/1';
 request(
   url,
   (error, response, body) => {
-    const data = JSON.parse(body);
     if (error) {
       console.log('status code: ', response.statusCode);
     }
-    console.log(data);
+    console.log(body);
   },
 );
 ```
 
-Response  ( from `console.log(data);` )
+Response  ( from `console.log(body);` )
 
 ```json
 [
@@ -143,17 +141,16 @@ request.post(
       },
     },
     (error, response, body) => {
-      const data = JSON.parse(body);
       if (error) {
         console.log('status code: ', response.statusCode);
       }
-      console.log(data);
+      console.log(body);
     },
   );
 );
 ```
 
-Response  ( from `console.log(data);` )
+Response  ( from `console.log(body);` )
 
 ```json
 [
@@ -181,11 +178,10 @@ request.del(
       form: { "id": 3 },
     },
     (error, response, body) => {
-      const data = JSON.parse(body);
       if (error) {
         console.log('status code: ', response.statusCode);
       }
-      console.log(data);
+      console.log(body);
     },
   );
 );
@@ -231,11 +227,10 @@ request.patch(
        },
     },
     (error, response, body) => {
-      const data = JSON.parse(body);
       if (error) {
         console.log('status code: ', response.statusCode);
       }
-      console.log(data);
+      console.log(body);
     },
   );
 );

@@ -3,6 +3,8 @@
 const request = require('request');
 
 const url = 'https://lidemy-book-store.herokuapp.com';
+const action = process.argv[2];
+const params = process.argv[3];
 
 
 function getBookList() {
@@ -10,7 +12,12 @@ function getBookList() {
   request.get(
     url + path,
     (error, response, body) => {
-      const data = JSON.parse(body);
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch (e) {
+        console.log(e);
+      }
       if (error) {
         console.log('getBookList status code: ', response.statusCode);
       }
@@ -24,7 +31,12 @@ function readBook(id) {
   request.get(
     url + path,
     (error, response, body) => {
-      const data = JSON.parse(body);
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch (e) {
+        console.log(e);
+      }
       if (error) {
         console.log('readBook status code: ', response.statusCode);
       }
@@ -38,7 +50,12 @@ function delBook(id) {
   request.del(
     url + path,
     (error, response, body) => {
-      const data = JSON.parse(body);
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch (e) {
+        console.log(e);
+      }
       if (error) {
         console.log('delBook status code: ', response.statusCode);
       }
@@ -55,7 +72,12 @@ function createBook(name) {
       form: { name },
     },
     (error, response, body) => {
-      const data = JSON.parse(body);
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch (e) {
+        console.log(e);
+      }
       if (error) {
         console.log('createBook status code: ', response.statusCode);
       }
@@ -72,7 +94,12 @@ function updateBook(id, name) {
       form: { name },
     },
     (error, response, body) => {
-      const data = JSON.parse(body);
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch (e) {
+        console.log(e);
+      }
       if (error) {
         console.log('updateBook status code: ', response.statusCode);
       }
@@ -81,21 +108,21 @@ function updateBook(id, name) {
   );
 }
 
-switch (process.argv[2]) {
+switch (action) {
   case 'list':
     getBookList();
     break;
   case 'read':
-    readBook(process.argv[3]);
+    readBook(params);
     break;
   case 'delete':
-    delBook(process.argv[3]);
+    delBook(params);
     break;
   case 'create':
-    createBook(process.argv[3]);
+    createBook(params);
     break;
   case 'update':
-    updateBook(process.argv[3], process.argv[4]);
+    updateBook(params, process.argv[4]);
     break;
   default:
     console.log('沒有這個指令，請重新輸入');

@@ -3,7 +3,13 @@ const request = require('request');
 const url = 'https://restcountries.eu/rest/v2/name/';
 const path = process.argv[2];
 request.get(url + path, (error, response, body) => {
-  const data = JSON.parse(body);
+  let data;
+  try {
+    data = JSON.parse(body);
+  } catch (e) {
+    console.log(e);
+  }
+
   if (error) {
     console.log('status code: ', response.statusCode);
   }

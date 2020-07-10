@@ -4,7 +4,12 @@ const url = 'https://lidemy-book-store.herokuapp.com/books?_limit=10';
 request(
   url,
   (error, response, body) => {
-    const data = JSON.parse(body);
+    let data;
+    try {
+      data = JSON.parse(body);
+    } catch (e) {
+      console.log(e);
+    }
     if (error) {
       console.log('status code: ', response.statusCode);
     }
