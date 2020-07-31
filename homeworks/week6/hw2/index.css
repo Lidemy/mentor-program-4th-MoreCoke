@@ -61,7 +61,7 @@ table {
 	/* 我根據設計稿利用 margin 和 padding 設定表單內元素間的距離，並在最後加入整個表單的高度 1085px 
 	，但最後還是爆版了，想問為甚麼會這樣? */
 	/* height: 1085px; */
-	margin: 129px auto 30px auto;
+	margin: 129px auto 66px auto;
 }
 
 .postpone-title {
@@ -117,14 +117,9 @@ table {
 	margin-bottom: 20px;
 }
 
-.postpone-type::after {
+.needed::after {
 	content: ' *';
 	color: #e74149;
-}
-
-.postpone-other {
-	font-size: 20px;
-	margin-bottom: 12px;
 }
 
 .postpone-advise {
@@ -143,7 +138,8 @@ table {
 	font-size: 15px;
 }
 
-/* 學 bootstrp 命名，但覺得這樣只設定單一屬性的 class 不太好，不知道怎麼做可以更好? */
+/* 學 bootstrp 命名，但覺得這樣只設定單一屬性的 class 不太好，不知道怎麼做可以更好? 
+  關於這部分的命名不知道老師助教有沒有什麼建議?*/
 .mt-21 {
 	margin-top: 21px;
 }
@@ -160,4 +156,12 @@ table {
 	.postpone-title {
 		font-size: 24px;
 	}
+}
+
+footer {
+	background-color: black;
+	padding: 26px;
+	font-size: 13px;
+	color: #999999;
+	text-align: center;
 }
