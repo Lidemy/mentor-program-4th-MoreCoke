@@ -19,7 +19,7 @@ function checkInputValue(e) {
   const { value, name } = e.target;
   const postponeGroup = e.target.closest('.postpone-group');
   const reMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const rePhone = /^\d{10}$/;
+  const rePhone = /^(09)\d{8}$/;
   const mailValid = value && reMail.test(value);
   const phoneValid = value && rePhone.test(value);
   const inputValid = value && ((name === 'name') || (name === 'know') || (name === 'activity'));
