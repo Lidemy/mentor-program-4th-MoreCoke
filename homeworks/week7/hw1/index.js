@@ -26,19 +26,19 @@ function checkInputValue(e) {
   const noNeedValid = (name === 'other');
   if (inputValid || mailValid || phoneValid || noNeedValid) {
     postponeGroup.classList.remove('warning');
+    userInfo.needed[name] = value;
   } else {
     postponeGroup.classList.add('warning');
+    userInfo.needed[name] = '';
   }
   if (noNeedValid) {
     userInfo.other[name] = value;
-  } else {
-    userInfo.needed[name] = value;
   }
-  console.log(JSON.parse(JSON.stringify(userInfo)));
+  // console.log(JSON.parse(JSON.stringify(userInfo)));
 }
 
 function showUserInfo(e) {
-  const isInputEmpty = Object.keys(userInfo.needed).some(key => (userInfo.needed[key] === null));
+  const isInputEmpty = Object.keys(userInfo.needed).some(key => !userInfo.needed[key]);
   if (isInputEmpty) {
     e.preventDefault();
     alert('資料尚未填寫或資料格式錯誤');
@@ -69,9 +69,8 @@ function showUserInfo(e) {
   }
 }
 
-const postponeBtn = document.querySelector('.postpone-btn');
 const postponeForm = document.querySelector('.postpone');
 
-postponeBtn.addEventListener('click', showUserInfo);
+postponeForm.addEventListener('submit', showUserInfo);
 postponeForm.addEventListener('propertychange', checkInputValue);
 postponeForm.addEventListener('input', checkInputValue);
