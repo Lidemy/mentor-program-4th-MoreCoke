@@ -1,3 +1,12 @@
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function addTodo(e) {
   if (e.keyCode === 13) {
     const todoAdd = document.querySelector('.todo-add');
@@ -8,14 +17,13 @@ function addTodo(e) {
     li.className = 'todo-item';
     li.id = id;
     li.innerHTML = `<label>
-    <input type="checkbox">${todoAdd.value}
+    <input type="checkbox">${escapeHtml(todoAdd.value)}
   </label>
   <span class="todo-item__del">X</span>`;
     todoAdd.value = '';
     todoList.appendChild(li);
   }
 }
-
 
 function clickTodo(e) {
   const { target } = e;
