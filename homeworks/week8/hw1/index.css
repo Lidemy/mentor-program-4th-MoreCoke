@@ -1,0 +1,276 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  box-sizing: border-box;
+  min-height: 84px;
+  background-color: #fff;
+  padding: 26px 96px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #97a2a0;
+}
+
+.nav-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-toggle {
+  display: none;
+  box-sizing: border-box;
+  width: 38px;
+  height: 38px;
+  padding: 6px 3px;
+  background-color: #489846;
+  border-radius: 4px;
+}
+
+.normal-icon {
+  position: relative;
+  height: 100%;
+}
+
+.normal-icon div {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  transition: all cubic-bezier(0.26, 0.1, 0.27, 1.5) 0.35s;
+}
+
+.normal-icon .line.top {
+  top: 18%;
+}
+
+.normal-icon .line.middle {
+ top: 48%;
+}
+
+.normal-icon .line.bottom {
+  top: 78%;
+}
+
+.normal-icon.close .line.top {
+  top:48%;
+  transform: rotate(45deg);
+}
+
+.normal-icon.close .line.middle {
+ transform: rotate(45deg);
+}
+
+.normal-icon.close .line.bottom {
+  top: 48%;
+  transform: rotate(-45deg);
+}
+
+
+.logo {
+  color: #489846;
+  font-size: 36px;
+  font-family: 'Questrial', sans-serif;
+  cursor: pointer;
+}
+
+.nav-list {
+  display: flex;
+}
+
+.nav-item {
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 18px;
+  text-align: center;
+  color: #010101;
+  margin-right: 16px;
+}
+
+.nav-item:last-child {
+  margin-right: 0px;
+}
+
+.nav-item:hover, .nav-item:active, .active {
+  background-color: #ff7286;
+  color: white;
+  cursor: pointer;
+}
+
+.lottery {
+  flex: 1;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  background-image: linear-gradient( rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),url('./img/games-bn.jpg');
+}
+
+.lottery-rule {
+  padding: 40px 60px;
+  margin: 55px auto auto;
+  border-radius: 16px;
+  max-width: 500px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.lottery-rule__title {
+  color: #5ec1b6;
+  font-size: 24px;
+}
+
+.lottery-rule__item {
+  display: flex;
+  padding: 18px 0;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.lottery-rule__item span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #322929;
+  white-space: nowrap;
+  margin-right: 18px;
+}
+
+.lottery-rule__item p {
+  text-align: left;
+}
+
+.lottery-btn {
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 20px;
+  background-color: #e62a45;
+  padding: 18px;
+  text-align: center;
+  max-width: 400px;
+  width: 80%;
+  line-height: 1;
+  margin-top: 36px;
+  cursor: pointer;
+}
+
+.lottery-rule__btn:hover,.lottery-rule__btn:active {
+  filter: brightness(85%);
+}
+
+.lottery-msg {
+  text-align: center;
+  padding: 16px;
+  margin: 55px auto auto;
+}
+
+.lottery-msg h1{
+  font-size: 36px;
+  font-weight: bold;
+}
+
+footer {
+  background-color: #e8efee;
+}
+
+.info {
+  padding: 44px 107px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-shop {
+  color: #484848;
+}
+
+.info a {
+  margin-top: 19px;
+  color: #484848;
+  text-decoration: none;
+}
+
+.copyright {
+  background-color: #35564b;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+@media (max-width: 1024px) {
+  .info {
+    padding: 20px 34px;
+  }
+}
+
+@media (max-width: 767px) {
+  nav {
+    padding: 26px 10px;
+    flex-direction: column;
+  }
+
+  .nav-switch {
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.show {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .nav-item {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+
+  .nav-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .info {
+    padding: 20px 34px;
+    flex-direction: column-reverse;
+  }
+
+  .info-shop {
+    margin-bottom: 16px;
+  }
+
+  .intro-map {
+    padding: 0;
+  }
+
+  .lottery-rule {
+    margin: 55px 24px;
+    padding: 30px 45px;
+    line-height: 1.25;
+  }
+
+  .lottery-rule__item {
+    flex-direction: column;
+  }
+
+  .lottery-rule__item span {
+    margin:0 0 12px 0;
+  }
+  .lottery-msg h1{
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
