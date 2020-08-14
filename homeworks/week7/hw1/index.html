@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新拖延運動</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="debug">
+      <form action="" class="postpone">
+        <h1 class="postpone-title">新拖延運動報名表單</h1>
+        <div class="postpone-description">
+          活動日期：2020/12/10 ~ 2020/12/11<br />
+          活動地點：台北市大安區新生南路二段1號
+        </div>
+        <span class="postpone-needed">
+          必填
+        </span>
+        <div class="postpone-group">
+          <label class="postpone-type needed" for="name">暱稱</label>
+          <input type="text" name="name" id="name" placeholder="您的回答" />
+          <p class="message">請填入暱稱</p>
+        </div>
+        <div class="postpone-group">
+          <label class="postpone-type needed" for="mail">電子郵件</label>
+          <input type="email" name="mail" id="mail" placeholder="您的電子郵件" />
+          <p class="message">請填入正確郵件格式</p>
+        </div>
+        <div class="postpone-group">
+          <label class="postpone-type needed" for="phone">手機號碼</label>
+          <input type="number" name="phone" id="phone" placeholder="您的手機號碼"/>
+          <p class="message">請填入正確號碼格式(十碼)</p>
+        </div>
+        <div class="postpone-group">
+          <p class="postpone-type needed">報名類型</p>
+          <label for="bed" class="mb-23">
+            <input type="radio" name="activity" id="bed" value="躺在床上用想像力實作"/>躺在床上用想像力實作
+          </label>
+          <label for="ground">
+            <input type="radio" name="activity" id="ground" value="趴在地上滑手機找現成的"/>
+            趴在地上滑手機找現成的
+          </label>
+          <p class="message">請選擇報名類型</p>
+        </div>
+        <div class="postpone-group">
+          <label class="postpone-type needed" for="know">怎麼知道這個活動的？</label>
+          <input type="text" name="know" id="know" placeholder="您的回答" />
+          <p class="message">不得留空!</p>
+        </div>
+        <div class="postpone-group">
+          <label class="postpone-type" for="other">其他</label>
+          <p class="postpone-advise">對活動的一些建議</p>
+          <input type="text" name="other" id="other" placeholder="您的回答" />
+        </div>
+
+        <button class="postpone-btn" type="submit">提交</button>
+        <p class="mt-21">請勿透過表單送出您的密碼。</p>
+      </form>
+      <footer>
+        © 2020 © Copyright. All rights Reserved.
+      </footer>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
