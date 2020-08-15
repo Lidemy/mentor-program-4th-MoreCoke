@@ -192,11 +192,11 @@ nav {
   font-size: 30px;
   font-weight: bold;
   pointer-events: none;
+  transition: all cubic-bezier(0.26, 0.1, 0.27, 1.5) 0.35s;
 }
 
 .question__desc-icon.close {
   transform: rotate(45deg);
-  transition: all cubic-bezier(0.26, 0.1, 0.27, 1.5) 0.35s;
 }
 
 .question__desc-response {
