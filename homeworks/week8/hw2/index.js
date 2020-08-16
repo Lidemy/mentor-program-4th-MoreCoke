@@ -88,6 +88,14 @@ const getTwitchGameList = (e) => {
       liveCardGroup.innerHTML += temp;
     }
   };
+  const renderActiveNavList = (evt) => {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach((element) => {
+      element.classList.remove('active');
+    });
+    evt.target.closest('.nav-item').classList.add('active');
+  };
+  renderActiveNavList(e);
   useFetch(url, renderLive);
 };
 
