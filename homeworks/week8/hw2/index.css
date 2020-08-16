@@ -1,0 +1,233 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+nav {
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #97a2a0;
+}
+
+.nav-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-toggle {
+  display: none;
+  box-sizing: border-box;
+  width: 38px;
+  height: 38px;
+  padding: 6px 3px;
+  background-color: #489846;
+  border-radius: 4px;
+}
+
+.nav-list {
+  display: flex;
+}
+
+.nav-item {
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 18px;
+  text-align: center;
+  color: #010101;
+  margin-right: 16px;
+}
+
+.nav-item:last-child {
+  margin-right: 0px;
+}
+
+.nav-item:hover,
+.nav-item:active,
+.active {
+  background-color: #ff7286;
+  color: white;
+  cursor: pointer;
+}
+
+.normal-icon {
+  position: relative;
+  height: 100%;
+}
+
+.normal-icon div {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  transition: all cubic-bezier(0.26, 0.1, 0.27, 1.5) 0.35s;
+}
+
+.normal-icon .line.top {
+  top: 18%;
+}
+
+.normal-icon .line.middle {
+  top: 48%;
+}
+
+.normal-icon .line.bottom {
+  top: 78%;
+}
+
+.normal-icon.close .line.top {
+  top: 48%;
+  transform: rotate(45deg);
+}
+
+.normal-icon.close .line.middle {
+  transform: rotate(45deg);
+}
+
+.normal-icon.close .line.bottom {
+  top: 48%;
+  transform: rotate(-45deg);
+}
+
+.live {
+  flex: 1;
+  background-color: #d0d0d0;
+}
+
+.live-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 16px;
+  text-align: center;
+}
+
+.live-subtitle {
+  font-size: 24px;
+  margin: 0 8px 16px;
+  text-align: center;
+}
+
+.live-card__group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.live-card__item {
+  /* width: 320px; 這樣設在手機板不會破版的原因是因為 flex-shrink，其預設為 1 */
+  flex: 0 1 320px; /*和上方屬性擇一設定即可*/
+  margin: 8px;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: black;
+}
+
+.live-card__item:hover {
+  box-shadow: 1px 1px 5px black;
+}
+
+.live-card__img {
+  background-position: center center;
+  background-size: cover;
+  height: 180px;
+}
+
+.live-card__content {
+  display: flex;
+  padding: 8px;
+  background-color: white;
+}
+
+.live-card__avator {
+  flex: 0 0 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: yellow;
+  background-position: center center;
+  background-size: cover;
+  margin-right: 8px;
+}
+
+.live-card__info {
+  overflow: hidden;
+}
+
+.live-card__game {
+  font-size: 26px;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live-card__player {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    font-size: 24px;
+  }
+
+  .live-title {
+    font-size: 20px;
+  }
+
+  .live-subtitle {
+    font-size: 16px;
+  }
+
+  nav {
+    padding: 26px 10px;
+    flex-direction: column;
+  }
+
+  .nav-switch {
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.show {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .nav-item {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+
+  .nav-item:last-child {
+    margin-bottom: 0;
+  }
+}
