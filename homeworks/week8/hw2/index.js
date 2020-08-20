@@ -54,7 +54,7 @@ const getTwitchGameList = (e) => {
   let {
     lives: { url },
   } = data;
-  const game = e.target.innerText;
+  const game = encodeURIComponent(e.target.innerText);
   url = `${url}?game=${game}&limit=20`;
   const renderLiveGroup = (response) => {
     const { streams } = response;
