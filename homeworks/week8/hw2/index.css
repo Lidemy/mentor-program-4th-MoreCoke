@@ -142,6 +142,11 @@ nav {
   color: black;
 }
 
+.live-card__empty {
+  margin: 8px;
+  flex: 0 1 320px;
+}
+
 .live-card__item:hover {
   box-shadow: 1px 1px 5px black;
 }

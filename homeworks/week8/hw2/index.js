@@ -56,7 +56,7 @@ const getTwitchGameList = (e) => {
   } = data;
   const game = e.target.innerText;
   url = `${url}?game=${game}&limit=20`;
-  const renderLive = (response) => {
+  const renderLiveGroup = (response) => {
     const { streams } = response;
     const { game: choosedGame } = streams[0];
     const liveTitle = document.querySelector('.live-title');
@@ -87,6 +87,14 @@ const getTwitchGameList = (e) => {
       `;
       liveCardGroup.innerHTML += temp;
     }
+    // 讓最下排卡片能靠左排版的神奇技巧
+    for (let i = 0; i < 4; i += 1) {
+      const liveCardEmpty = document.createElement('div');
+      liveCardEmpty.classList.add('live-card__empty');
+      // 無效，因為 liveCardEmpty DOM 元素是物件非字串
+      // liveCardGroup.innerHTML += liveCardEmpty;
+      liveCardGroup.appendChild(liveCardEmpty);
+    }
   };
   const renderActiveNavList = (evt) => {
     const navItems = document.querySelectorAll('.nav-item');
@@ -96,7 +104,7 @@ const getTwitchGameList = (e) => {
     evt.target.closest('.nav-item').classList.add('active');
   };
   renderActiveNavList(e);
-  useFetch(url, renderLive);
+  useFetch(url, renderLiveGroup);
 };
 
 getTwitchTopGame();
