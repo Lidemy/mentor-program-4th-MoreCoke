@@ -36,7 +36,7 @@ function mycallback(response) {
 
 跨網域問題其實是瀏覽器的保護機制，我們送出的非同步請求其實是有成功的，只是說拿到的 response 會被瀏覽器擋掉，造成我們拿不到資料使網頁報錯。
 
-如果想開放自己網站的資料給任何人存取，可以在 Header 中設定 `Access-Control-Allow-Origin: *`。
+如果想開放自己網站的資料給任何人存取，可以在 Response Header 中設定 `Access-Control-Allow-Origin: *`。
 
 參考資料:
 
