@@ -8,7 +8,7 @@ function toggleNavList() {
   navIcon.classList.toggle('close');
 }
 
-function prizeBgc(prize) {
+function prizeBackground(prize) {
   switch (prize) {
     case 'FIRST':
       return {
@@ -44,7 +44,7 @@ function getAsyncDrawLot(e) {
     req.onload = function () {
       if (this.status >= 200 && this.status < 400) {
         const { prize } = JSON.parse(this.responseText);
-        const { backgroundImage, msg, color } = prizeBgc(prize);
+        const { backgroundImage, msg, color } = prizeBackground(prize);
         const lottery = document.querySelector('.lottery');
         const div = document.createElement('div');
         lottery.style.backgroundImage = backgroundImage;
@@ -54,9 +54,8 @@ function getAsyncDrawLot(e) {
         div.innerHTML = `<h1>${msg}</h1>
         <button class="lottery-btn">我要抽獎</button>
         `;
-        console.log(msg);
         lottery.appendChild(div);
-        console.log(this);
+        alert('抽獎成功！');
       } else {
         alert('系統不穩定，請再試一次');
       }
