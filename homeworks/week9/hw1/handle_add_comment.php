@@ -11,7 +11,7 @@ $user = getUserFromUsername($_SESSION['username']);
 $username = $user['username'];
 
 $user_sql = sprintf(
-  'select nickname from users where username="%s"',
+  'select nickname from MoreCoke_users where username="%s"',
   $username
 );
 $user_result = $conn->query($user_sql);
@@ -19,7 +19,7 @@ $row = $user_result->fetch_assoc();
 $nickname = $row['nickname'];
 $content = $_POST['content'];
 $sql = sprintf(
-  'insert into comments(nickname, content) values("%s", "%s")',
+  'insert into MoreCoke_comments(nickname, content) values("%s", "%s")',
   $nickname,
   $content
 );

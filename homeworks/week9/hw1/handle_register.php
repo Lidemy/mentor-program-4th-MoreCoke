@@ -14,7 +14,7 @@ $nickname = $_POST['nickname'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 $sql = sprintf(
-  'insert into users(nickname, username, password) values("%s", "%s", "%s")',
+  'insert into MoreCoke_users(nickname, username, password) values("%s", "%s", "%s")',
   $nickname,
   $username,
   $password

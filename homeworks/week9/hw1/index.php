@@ -53,7 +53,7 @@
     <div class="board__hr"></div>
     <section>
       <?php
-      $result = $conn->query("select * from comments order by id desc");
+      $result = $conn->query("select * from MoreCoke_comments order by id desc");
       if (!$result) {
         die("Error:" . $conn->error);
       }
