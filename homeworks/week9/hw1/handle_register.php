@@ -13,10 +13,9 @@
     );
     $result = $conn->query($sql);
     if(!$result) {
-      die($conn->error);
+      die(header('Location: register.php?errCode=2'));
     }
     header('Location: index.php');
   } else {
     header('Location: register.php?errCode=1');
   }
-
