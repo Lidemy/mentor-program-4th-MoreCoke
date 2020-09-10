@@ -2,10 +2,17 @@
   require_once('conn.php');
 
   $content = $_POST['content'];
-  $cookie = $_COOKIE['username'];
+  $token = $_COOKIE['token'];
   $sql = sprintf(
-    'SELECT * FROM morecoke_users WHERE username = "%s"',
-    $cookie
+    'SELECT * FROM tokens WHERE token = "%s"',
+    $token
+  );
+  $result = $conn->query($sql);
+  $row = $result->fetch_assoc();
+  $username = $row['username'];
+  $sql = sprintf(
+    'SELECT * FROM morecoke_users WHERE username="%s"',
+    $username
   );
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();

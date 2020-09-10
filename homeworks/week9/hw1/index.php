@@ -16,11 +16,19 @@
   <header class="warning">注意！本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時請勿使用任何真實的帳號或密碼。</header>
   <main class="board">
     <?php
-      if(isset($_COOKIE['username'])) {
+      if(isset($_COOKIE['token'])) {
+        $token = $_COOKIE['token'];
+        $sql = sprintf(
+          'SELECT * FROM tokens WHERE token="%s"',
+          $token
+        );
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $username = $row['username'];
     ?>
       <a href="logout.php" class="board-btn">登出</a>
       <h1>Comments</h1>
-      <h3>你好! <?= $_COOKIE['username']?></h3>
+      <h3>你好! <?= $username?></h3>
       <form class="board-comment" method="POST" action="handle_add_comment.php">
         <textarea class="board-comment__textarea" name="content" rows="5"></textarea>
         <input class="board-btn" type="submit">

@@ -19,3 +19,4 @@
   } else {
     header('Location: register.php?errCode=1');
   }
+

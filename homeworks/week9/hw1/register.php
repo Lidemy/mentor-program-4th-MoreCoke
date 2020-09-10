@@ -19,7 +19,10 @@
       if($errCode === '1') {
     ?>
       <h2 class="error">錯誤: 資料不齊全</h2>
-    <?php }?>
+    <?php }
+      if($errCode === '2') {?>
+      <h2 class="error">帳號已被註冊</h2>
+      <?php }?>
     <form method="POST" action="handle_register.php" class="board-comment">
       <div class="board-input">
         <span>暱稱:</span>
