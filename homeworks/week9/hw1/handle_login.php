@@ -14,5 +14,7 @@
   if($num_rows === 0) {
     header('Location: login.php?errCode=1');
   } else {
+    $expire = 30*24*3600;
+    setcookie('username', $username, time() + $expire);
     header('Location: index.php'); 
   }

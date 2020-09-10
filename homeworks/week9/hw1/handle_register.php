@@ -15,7 +15,7 @@
     if(!$result) {
       die($conn->error);
     }
-    print_r($result);
+    header('Location: index.php');
   } else {
     header('Location: register.php?errCode=1');
   }

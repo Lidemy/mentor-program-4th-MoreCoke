@@ -11,6 +11,8 @@
 <body>
   <header class="warning">注意！本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時請勿使用任何真實的帳號或密碼。</header>
   <main class="board">
+    <a href="index.php" class="board-btn">回留言板</a>
+    <a href="login.php" class="board-btn">登入</a>
     <h1 class="board-title">註冊</h1>
     <?php
       $errCode = isset($_GET['errCode']) ? $_GET['errCode'] : null;
