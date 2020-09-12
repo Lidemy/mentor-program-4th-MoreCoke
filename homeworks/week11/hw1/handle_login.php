@@ -14,15 +14,21 @@ if (
 $username = $_POST['username'];
 $password = $_POST['password'];
 $sql = sprintf(
-  'SELECT * FROM morecoke_users WHERE username="%s" AND password="%s"',
-  $username,
-  $password
+  'SELECT * FROM morecoke_users WHERE username="%s"',
+  $username
 );
 $result = $conn->query($sql);
 if (!$result) {
   die('' . $conn->error);
 }
-if ($result->num_rows) {
+if($result->num_rows === 0) {
+  header("Location: login.php?errCode=2");
+  exit();
+}
+
+//有查到使用者
+$row = $result->fetch_assoc();
+if(password_verify($password, $row['password'])) {
   $_SESSION['username'] = $username;
   header("Location: index.php");
   // echo '登入成功!';

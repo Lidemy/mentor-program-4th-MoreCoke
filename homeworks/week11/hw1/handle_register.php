@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('conn.php');
 
 if (
@@ -12,7 +13,7 @@ if (
 
 $nickname = $_POST['nickname'];
 $username = $_POST['username'];
-$password = $_POST['password'];
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $sql = sprintf(
   'INSERT INTO morecoke_users(nickname, username, password) VALUE("%s", "%s", "%s")',
   $nickname,
@@ -28,5 +29,6 @@ if (!$result) {
   die('' . $conn->error);
 }
 
+$_SESSION['username'] = $username;
 header("Location: index.php");
 ?> 
