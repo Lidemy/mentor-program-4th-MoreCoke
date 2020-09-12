@@ -1,15 +1,8 @@
 <?php
+  session_start();
   require_once('conn.php');
-
   $content = $_POST['content'];
-  $token = $_COOKIE['token'];
-  $sql = sprintf(
-    'SELECT * FROM tokens WHERE token = "%s"',
-    $token
-  );
-  $result = $conn->query($sql);
-  $row = $result->fetch_assoc();
-  $username = $row['username'];
+  $username = $_SESSION['username'];
   $sql = sprintf(
     'SELECT * FROM morecoke_users WHERE username="%s"',
     $username

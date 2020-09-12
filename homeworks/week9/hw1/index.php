@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once('conn.php');
 ?>
 
@@ -16,18 +17,8 @@
   <header class="warning">注意！本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時請勿使用任何真實的帳號或密碼。</header>
   <main class="board">
     <?php
-      if(isset($_COOKIE['token'])) {
-        $token = $_COOKIE['token'];
-        $sql = sprintf(
-          'SELECT * FROM tokens WHERE token="%s"',
-          $token
-        );
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        if(!$row) {
-          die(header('Location: logout.php'));
-        }
-        $username = $row['username'];
+      if(isset($_SESSION['username'])) {
+        $username = $_SESSION['username'];
         $sql = sprintf(
           "SELECT * FROM morecoke_users WHERE username = '%s'",
           $username

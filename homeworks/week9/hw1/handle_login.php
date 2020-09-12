@@ -1,6 +1,8 @@
 <?php
+  session_start();
   require_once('conn.php');
   require_once('utils.php');
+
   $username = $_POST['username'];
   $password = $_POST['password'];
   $sql = sprintf(
@@ -15,13 +17,7 @@
     header('Location: login.php?errCode=1');
   } else {
     $expire = time() + 30*24*3600;
-    $token = generateRandomString();
-    $sql = sprintf(
-      'INSERT INTO tokens (token, username) VALUE ("%s", "%s")',
-      $token,
-      $username
-    );
     $conn->query($sql);
-    setcookie('token', $token, $expire);
+    $_SESSION['username'] = $username;
     header('Location: index.php'); 
   }

@@ -1,11 +1,5 @@
 <?php
+  session_start();
   require_once('conn.php');
-
-  $toekn = $_COOKIE['token'];
-  $sql = sprintf(
-    'DELETE FROM tokens WHERE token = "%s"',
-    $toekn
-  );
-  $conn->query($sql);
-  setcookie('token', '', time() - 3600);
+  session_destroy();
   header('Location: index.php');
