@@ -53,20 +53,22 @@
     <div class="board__hr"></div>
     <section>
       <?php
-      $result = $conn->query("SELECT * FROM morecoke_comments ORDER BY id DESC");
+      $stmt = $conn->prepare("SELECT * FROM morecoke_comments ORDER BY id DESC");
+      $result = $stmt->execute();
       if (!$result) {
         die("Error:" . $conn->error);
       }
+      $result = $stmt->get_result();
       while ($row = $result->fetch_assoc()) {
       ?>
         <div class="card">
           <div class="card__avatar"></div>
           <div class="card__body">
             <div class="card__info">
-              <span class="card__author"><?= $row['nickname'] ?></span>
-              <span class="card__time"><?= $row['created_at'] ?></span>
+              <span class="card__author"><?= escape($row['nickname']) ?></span>
+              <span class="card__time"><?= escape($row['created_at']) ?></span>
             </div>
-            <p class="card__content"><?= $row['content'] ?></p>
+            <p class="card__content"><?= escape($row['content']) ?></p>
           </div>
         </div>
       <?php

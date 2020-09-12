@@ -14,13 +14,10 @@ if (
 $nickname = $_POST['nickname'];
 $username = $_POST['username'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$sql = sprintf(
-  'INSERT INTO morecoke_users(nickname, username, password) VALUE("%s", "%s", "%s")',
-  $nickname,
-  $username,
-  $password
-);
-$result = $conn->query($sql);
+$sql = 'INSERT INTO morecoke_users(nickname, username, password) VALUE(?, ?, ?)';
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('sss', $nickname, $username, $password);
+$result = $stmt->execute();
 if (!$result) {
   $code = $conn->errno;
   if ($code === 1062) {
