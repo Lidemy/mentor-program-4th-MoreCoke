@@ -24,11 +24,21 @@
         );
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
+        if(!$row) {
+          die(header('Location: logout.php'));
+        }
         $username = $row['username'];
+        $sql = sprintf(
+          "SELECT * FROM morecoke_users WHERE username = '%s'",
+          $username
+        );
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $nickname = $row['nickname'];
     ?>
       <a href="logout.php" class="board-btn">登出</a>
       <h1>Comments</h1>
-      <h3>你好! <?= $username?></h3>
+      <h3>你好! <?= $nickname?></h3>
       <form class="board-comment" method="POST" action="handle_add_comment.php">
         <textarea class="board-comment__textarea" name="content" rows="5"></textarea>
         <input class="board-btn" type="submit">
