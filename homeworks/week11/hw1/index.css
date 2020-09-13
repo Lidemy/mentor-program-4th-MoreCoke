@@ -38,6 +38,10 @@ body {
   margin-bottom: 10px;
 }
 
+.board__nickname-form {
+  margin-top: 20px;
+}
+
 .board__nickname input {
   border: 1px solid #c2dffb;
   padding: 5px;
@@ -103,4 +107,9 @@ body {
   padding: 10px 30px;
   text-decoration: none;
   display: inline-block;
-} 
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
