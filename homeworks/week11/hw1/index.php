@@ -69,6 +69,7 @@
         "U.nickname AS nickname, U.username AS username " .
         "FROM morecoke_comments AS C " .
         "LEFT JOIN morecoke_users as U ON C.username = U.username " .
+        "WHERE C.is_deleted IS NULL " .
         "ORDER BY C.id DESC"
       );
       $result = $stmt->execute();
