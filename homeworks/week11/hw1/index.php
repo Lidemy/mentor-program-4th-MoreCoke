@@ -63,7 +63,14 @@
     <div class="board__hr"></div>
     <section>
       <?php
-      $stmt = $conn->prepare("SELECT * FROM morecoke_comments ORDER BY id DESC");
+      $stmt = $conn->prepare(
+        "SELECT " .
+        "C.id AS id, C.content AS content, C.created_at AS created_at, " .
+        "U.nickname AS nickname, U.username AS username " .
+        "FROM morecoke_comments AS C " .
+        "LEFT JOIN morecoke_users as U ON C.username = U.username " .
+        "ORDER BY C.id DESC"
+      );
       $result = $stmt->execute();
       if (!$result) {
         die("Error:" . $conn->error);
@@ -75,7 +82,10 @@
           <div class="card__avatar"></div>
           <div class="card__body">
             <div class="card__info">
-              <span class="card__author"><?= escape($row['nickname']) ?></span>
+              <span class="card__author">
+                <?= escape($row['nickname']) ?>
+                (@<?= escape($row['username']) ?>)
+                </span>
               <span class="card__time"><?= escape($row['created_at']) ?></span>
             </div>
             <p class="card__content"><?= escape($row['content']) ?></p>
@@ -88,10 +98,12 @@
   </main>
   <script>
     var btn = document.querySelector('.update-nickname');
-    btn.addEventListener('click', ()=>{
-      var nicknameForm = document.querySelector('.board__nickname-form');
-      nicknameForm.classList.toggle('hide');
-    });
+    if(btn) {
+      btn.addEventListener('click', ()=>{
+        var nicknameForm = document.querySelector('.board__nickname-form');
+        nicknameForm.classList.toggle('hide');
+      });
+    }
   </script>
 </body>
 

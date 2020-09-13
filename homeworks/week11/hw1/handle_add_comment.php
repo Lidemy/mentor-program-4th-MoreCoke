@@ -8,13 +8,12 @@ if (empty($_POST['content'])) {
   die('資料不齊全');
 }
 
-$user = getUserFromUsername($_SESSION['username']);
-$nickname = $user['nickname'];
+$username = $_SESSION['username'];
 $content = $_POST['content'];
 
-$sql = 'INSERT INTO morecoke_comments(nickname, content) VALUE(?, ?)';
+$sql = 'INSERT INTO morecoke_comments(username, content) VALUE(?, ?)';
 $stmt = $conn->prepare($sql);
-$stmt->bind_param('ss', $nickname, $content);
+$stmt->bind_param('ss', $username, $content);
 $result = $stmt->execute();
 
 if (!$result) {
