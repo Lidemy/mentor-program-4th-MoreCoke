@@ -1,6 +1,6 @@
 body {
+  background-color: #f7f7f7;
   margin: 0;
-  background: #f7f7f7;
 }
 
 * {
@@ -8,10 +8,11 @@ body {
 }
 
 .warning {
-  background: #ffc4c6;
-  color: #a20606;
   padding: 10px;
   text-align: center;
+  background-color: #ffc4c6;
+  color: #a20606;
+  font-weight: bold;
 }
 
 .error {
@@ -19,7 +20,7 @@ body {
 }
 
 .board {
-  background: white;
+  background-color: white;
   width: 100%;
   max-width: 700px;
   margin: 20px auto;
@@ -28,105 +29,66 @@ body {
   border-radius: 5px;
 }
 
-.board__new-comment-form textarea{
+.board-btn {
+  border: 1px solid #c2dffb;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 10px 30px;
+  text-decoration: none;
+}
+
+.board-input {
+  margin-bottom: 10px;
+}
+
+.board-input input {
+  border: 1px solid #c2dffb;
+  padding: 5px;
+}
+
+.board-comment__textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #c2dffb;
 }
 
-.board__nickname {
-  margin-bottom: 10px;
-}
-
-.board__nickname-form {
-  margin-top: 20px;
-}
-
-.board__nickname input {
-  border: 1px solid #c2dffb;
-  padding: 5px;
-}
-
-.board__submit-btn {
-  padding: 10px;
-  border: 1px solid #c2dffb;
-  border-radius: 5px;
-  width: 100px;
-  color: #583c63;
-  font-size: 16px;
-  background: white;
-}
-
-.board__hr {
+.board-hr {
   margin: 20px auto;
   height: 2px;
-  background: #e8e8e8;
+  background: #c8c8c8;
   max-width: 95%;
 }
 
 .card {
-  margin: 20px 0;
-  min-height: 70px;
   display: flex;
+  margin: 20px 0;
 }
 
-.card__avatar {
-  min-width: 50px;
+.card-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #e4f0fb;
+  background-color: #e4f0fb;
+  flex-shrink: 0;
 }
 
-.card__body {
+.card-body {
   margin-left: 10px;
 }
 
-.card__content {
-  margin-top: 8px;
-  max-width: 100%;
-  word-break: break-word;
-  white-space: pre-line;
-}
-
-.card__author {
+.card-author {
   color: #5c9edc;
   font-weight: bold;
 }
 
-.card__time {
+.card-time {
   color: #a0a0a0;
 }
 
-.board__btn {
-  border: 1px solid #c2dffb;
-  border-radius: 5px;
-  color: black;
-  font-size: 16px;
-  background: white;
-  padding: 10px 30px;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.hide {
-  display: none;
-}
-
-.page-info {
-  text-align: center;
-}
-
-.paginator {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.paginator a {
-  text-decoration: none;
-  color: #5c9edc;
-  border: 1px solid #5c9edc;
-  padding: 10px;
+.card-content {
+  margin-top: 8px;
+  word-break: break-word;
+  white-space: pre-line;
 }

@@ -1,23 +1,20 @@
 <?php
-session_start();
-require_once('conn.php');
-require_once('utils.php');
+  session_start();
+  require_once('conn.php');
+  $content = $_POST['content'];
+  $username = $_SESSION['username'];
+  $sql = sprintf(
+    'SELECT * FROM morecoke_users WHERE username="%s"',
+    $username
+  );
+  $result = $conn->query($sql);
+  $row = $result->fetch_assoc();
+  $nickname = $row['nickname'];
+  $sql = sprintf(
+    'INSERT INTO morecoke_comments (nickname, content) VALUE ("%s", "%s")',
+    $nickname,
+    $content
+  );
+  $conn->query($sql);
 
-if (empty($_POST['content'])) {
-  header('Location: index.php?errCode=1');
-  die('資料不齊全');
-}
-
-$username = $_SESSION['username'];
-$content = $_POST['content'];
-
-$sql = 'INSERT INTO morecoke_comments(username, content) VALUE(?, ?)';
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('ss', $username, $content);
-$result = $stmt->execute();
-
-if (!$result) {
-  die($conn->error);
-}
-
-header("Location: index.php");
+  header('Location: index.php'); 
