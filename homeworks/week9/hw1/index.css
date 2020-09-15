@@ -1,0 +1,94 @@
+body {
+  background-color: #f7f7f7;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.warning {
+  padding: 10px;
+  text-align: center;
+  background-color: #ffc4c6;
+  color: #a20606;
+  font-weight: bold;
+}
+
+.error {
+  color: #a20606;
+}
+
+.board {
+  background-color: white;
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 10px 30px;
+  box-shadow: 1px 1px 3px #e8e8e8;
+  border-radius: 5px;
+}
+
+.board-btn {
+  border: 1px solid #c2dffb;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 10px 30px;
+  text-decoration: none;
+}
+
+.board-input {
+  margin-bottom: 10px;
+}
+
+.board-input input {
+  border: 1px solid #c2dffb;
+  padding: 5px;
+}
+
+.board-comment__textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c2dffb;
+}
+
+.board-hr {
+  margin: 20px auto;
+  height: 2px;
+  background: #c8c8c8;
+  max-width: 95%;
+}
+
+.card {
+  display: flex;
+  margin: 20px 0;
+}
+
+.card-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e4f0fb;
+  flex-shrink: 0;
+}
+
+.card-body {
+  margin-left: 10px;
+}
+
+.card-author {
+  color: #5c9edc;
+  font-weight: bold;
+}
+
+.card-time {
+  color: #a0a0a0;
+}
+
+.card-content {
+  margin-top: 8px;
+  word-break: break-word;
+  white-space: pre-line;
+}
