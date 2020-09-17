@@ -15,11 +15,11 @@
     <a href="register.php" class="board-btn">註冊</a>
     <h1 class="board-title">登入</h1>
     <?php
-      $errCode = isset($_GET['errCode']) ? $_GET['errCode'] : null;
-      if($errCode === '1') {
+    $errCode = isset($_GET['errCode']) ? $_GET['errCode'] : null;
+    if ($errCode === '1') {
     ?>
       <h2 class="error">錯誤: 資料不齊全</h2>
-    <?php }?>
+    <?php } ?>
     <form method="POST" action="handle_login.php" class="board-comment">
       <div class="board-input">
         <span>帳號:</span>
