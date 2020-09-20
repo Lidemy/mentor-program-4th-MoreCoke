@@ -37,6 +37,7 @@ body {
   display: inline-block;
   padding: 10px 30px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .board-input {
@@ -91,4 +92,8 @@ body {
   margin-top: 8px;
   word-break: break-word;
   white-space: pre-line;
+}
+
+.hide {
+  display: none;
 }

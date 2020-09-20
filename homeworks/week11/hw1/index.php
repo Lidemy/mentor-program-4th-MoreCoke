@@ -28,8 +28,16 @@ require_once('conn.php');
       $nickname = $row["nickname"];
     ?>
       <a href="logout.php" class="board-btn">登出</a>
-      <h1>Comments</h1>
+      <span class="board-btn update-nickname">編輯暱稱</span>
       <h3>你好! <?= $nickname ?></h3>
+      <form class="hide board-comment" method="POST" action="update_user.php">
+        <div class="board-input">
+          <span>新的暱稱:</span>
+          <input type="text" name="nickname">
+        </div>
+        <input class="board-btn" type="submit">
+      </form>
+      <h1>Comments</h1>
       <form class="board-comment" method="POST" action="handle_add_comment.php">
         <textarea class="board-comment__textarea" name="content" rows="5"></textarea>
         <input class="board-btn" type="submit">
@@ -73,6 +81,15 @@ require_once('conn.php');
       </div>
     <?php } ?>
   </main>
+  <script>
+    let btn = document.querySelector('.update-nickname');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        let nicknameForm = document.querySelector('form[action="update_user.php"]');
+        nicknameForm.classList.toggle('hide');
+      })
+    }
+  </script>
 </body>
 
 </html>
