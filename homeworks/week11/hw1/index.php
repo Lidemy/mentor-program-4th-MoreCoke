@@ -52,7 +52,7 @@ require_once('conn.php');
     <?php
     $sql = 'SELECT ' .
       'users.nickname, users.username, ' .
-      'comments.content, comments.is_deleted, comments.created_at ' .
+      'comments.id, comments.content, comments.is_deleted, comments.created_at ' .
       'FROM ' .
       'morecoke_comments AS comments ' .
       'LEFT JOIN ' .
@@ -75,6 +75,9 @@ require_once('conn.php');
             <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
               <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
             <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
+            <?php if (isset($_SESSION['username']) && $row['username'] === $username) { ?>
+              <a href="update_comment.php?id=<?= $row['id'] ?>">編輯</a>
+            <?php } ?>
           </div>
           <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
         </div>
