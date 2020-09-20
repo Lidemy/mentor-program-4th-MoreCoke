@@ -59,6 +59,8 @@ require_once('conn.php');
       'morecoke_users AS users ' .
       'ON ' .
       'comments.username=users.username ' .
+      'WHERE ' .
+      'comments.is_deleted IS NULL ' .
       'ORDER BY comments.created_at DESC';
     $stmt = $conn->prepare($sql);
     $stmt->execute();
