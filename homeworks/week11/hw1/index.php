@@ -19,13 +19,13 @@ require_once('conn.php');
     <?php
     if (isset($_SESSION['username'])) {
       $username = $_SESSION['username'];
-      $sql = sprintf(
-        "SELECT * FROM morecoke_users WHERE username = '%s'",
-        $username
-      );
-      $result = $conn->query($sql);
+      $sql = "SELECT * FROM morecoke_users WHERE username = ?";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $username);
+      $stmt->execute();
+      $result = $stmt->get_result();
       $row = $result->fetch_assoc();
-      $nickname = $row['nickname'];
+      $nickname = $row["nickname"];
     ?>
       <a href="logout.php" class="board-btn">登出</a>
       <h1>Comments</h1>
@@ -42,12 +42,19 @@ require_once('conn.php');
     <?php } ?>
     <div class="board-hr"></div>
     <?php
-    $a = password_hash("asdf", PASSWORD_DEFAULT);
-    $b = password_verify('asdf', $a);
-    // echo $a;
-    echo $b;
-    $sql = 'SELECT * FROM morecoke_comments ORDER BY id DESC';
-    $result = $conn->query($sql);
+    $sql = 'SELECT ' .
+      'users.nickname, users.username, ' .
+      'comments.content, comments.is_deleted, comments.created_at ' .
+      'FROM ' .
+      'morecoke_comments AS comments ' .
+      'LEFT JOIN ' .
+      'morecoke_users AS users ' .
+      'ON ' .
+      'comments.username=users.username ' .
+      'ORDER BY comments.created_at DESC';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
     if (!$result) {
       die('錯誤' . $conn->error);
     }
@@ -57,10 +64,11 @@ require_once('conn.php');
         <div class="card-avatar"></div>
         <div class="card-body">
           <div class="card-info">
-            <span class="card-author"><?= $row['nickname'] ?></span>
-            <span class="card-time"><?= $row['created_at'] ?></span>
+            <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
+              <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
+            <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
           </div>
-          <div class="card-content"><?= $row['content'] ?></div>
+          <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
         </div>
       </div>
     <?php } ?>
