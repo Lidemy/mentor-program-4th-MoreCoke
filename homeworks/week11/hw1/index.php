@@ -77,6 +77,7 @@ require_once('conn.php');
             <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
             <?php if (isset($_SESSION['username']) && $row['username'] === $username) { ?>
               <a href="update_comment.php?id=<?= $row['id'] ?>">編輯</a>
+              <a href="delete_comment.php?id=<?= $row['id'] ?>">刪除</a>
             <?php } ?>
           </div>
           <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
