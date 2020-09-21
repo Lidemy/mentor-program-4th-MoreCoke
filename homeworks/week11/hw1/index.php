@@ -50,6 +50,9 @@ require_once('conn.php');
     <?php } ?>
     <div class="board-hr"></div>
     <?php
+    $item_limit = 10;
+    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $offset = ($page - 1) * $item_limit;
     $sql = 'SELECT ' .
       'users.nickname, users.username, ' .
       'comments.id, comments.content, comments.is_deleted, comments.created_at ' .
@@ -61,8 +64,10 @@ require_once('conn.php');
       'comments.username=users.username ' .
       'WHERE ' .
       'comments.is_deleted IS NULL ' .
-      'ORDER BY comments.created_at DESC';
+      'ORDER BY comments.created_at DESC ' .
+      'LIMIT ? OFFSET ?';
     $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $item_limit, $offset);
     $stmt->execute();
     $result = $stmt->get_result();
     if (!$result) {
@@ -86,6 +91,32 @@ require_once('conn.php');
         </div>
       </div>
     <?php } ?>
+    <?php
+    $sql = 'SELECT COUNT(*) AS count FROM morecoke_comments WHERE is_deleted IS NULL';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $count = $row['count'];
+    $total_page = ceil($count / $item_limit);
+    ?>
+    <div class="page-info">
+      <span>總共有 <?php echo $count ?> 筆留言，頁數:</span>
+      <span><?php echo $page ?> / <?php echo $total_page ?></span>
+    </div>
+    <div class="pagination">
+      <?php if ($page > 1) { ?>
+        <a href="index.php?page=1">第一頁</a>
+        <a href="index.php?page=<?php echo $page - 1 ?>">上一頁</a>
+      <?php } ?>
+      <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+        <a href="index.php?page=<?php echo $i ?>"><?php echo $i ?></a>
+      <?php } ?>
+      <?php if ($page < $total_page) { ?>
+        <a href="index.php?page=<?php echo $page + 1 ?>">下一頁</a>
+        <a href="index.php?page=<?php echo $total_page ?>">最後一頁</a>
+      <?php } ?>
+    </div>
   </main>
   <script>
     let btn = document.querySelector('.update-nickname');
