@@ -14,9 +14,9 @@ $sql = 'SELECT ' .
   'ON ' .
   'comments.username=users.username ' .
   'WHERE ' .
-  'comments.id=?';
+  'comments.id=? AND comments.username=?';
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
+$stmt->bind_param("is", $id, $username);
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
