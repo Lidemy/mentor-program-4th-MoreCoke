@@ -26,10 +26,11 @@ require_once('conn.php');
       $result = $stmt->get_result();
       $row = $result->fetch_assoc();
       $nickname = $row["nickname"];
+      $role = $row['role'];
     ?>
       <a href="logout.php" class="board-btn">登出</a>
       <span class="board-btn update-nickname">編輯暱稱</span>
-      <h3>你好! <?= $nickname ?></h3>
+      <h2><?php echo ($role !== 0 ? ('你好! ') : ('您好! 管理者: ')) . $nickname ?></h2>
       <form class="hide board-comment" method="POST" action="update_user.php">
         <div class="board-input">
           <span>新的暱稱:</span>
@@ -74,23 +75,42 @@ require_once('conn.php');
       die('錯誤' . $conn->error);
     }
     ?>
-    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-      <div class="card">
-        <div class="card-avatar"></div>
-        <div class="card-body">
-          <div class="card-info">
-            <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
-              <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
-            <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
-            <?php if (isset($_SESSION['username']) && $row['username'] === $username) { ?>
+    <?php
+    if (isset($role) && $role === 0) {
+      while ($row = mysqli_fetch_assoc($result)) { ?>
+        <div class="card">
+          <div class="card-avatar"></div>
+          <div class="card-body">
+            <div class="card-info">
+              <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
+                <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
+              <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
               <a href="update_comment.php?id=<?= $row['id'] ?>">編輯</a>
               <a href="delete_comment.php?id=<?= $row['id'] ?>">刪除</a>
-            <?php } ?>
+            </div>
+            <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
           </div>
-          <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
         </div>
-      </div>
-    <?php } ?>
+      <?php }
+    } else {
+      while ($row = mysqli_fetch_assoc($result)) { ?>
+        <div class="card">
+          <div class="card-avatar"></div>
+          <div class="card-body">
+            <div class="card-info">
+              <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
+                <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
+              <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
+              <?php if (isset($_SESSION['username']) && $row['username'] === $username) { ?>
+                <a href="update_comment.php?id=<?= $row['id'] ?>">編輯</a>
+                <a href="delete_comment.php?id=<?= $row['id'] ?>">刪除</a>
+              <?php } ?>
+            </div>
+            <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
+          </div>
+        </div>
+    <?php }
+    } ?>
     <?php
     $sql = 'SELECT COUNT(*) AS count FROM morecoke_comments WHERE is_deleted IS NULL';
     $stmt = $conn->prepare($sql);
