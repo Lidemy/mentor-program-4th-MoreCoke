@@ -41,11 +41,15 @@ require_once('conn.php');
         </div>
         <input class="board-btn" type="submit">
       </form>
-      <h1>Comments</h1>
-      <form class="board-comment" method="POST" action="handle_add_comment.php">
-        <textarea class="board-comment__textarea" name="content" rows="5"></textarea>
-        <input class="board-btn" type="submit">
-      </form>
+      <?php if ($role == 2) { ?>
+        <h2 class="error">很抱歉，你遭停權，無法留言!</h2>
+      <?php } else { ?>
+        <h1>Comments</h1>
+        <form class="board-comment" method="POST" action="handle_add_comment.php">
+          <textarea class="board-comment__textarea" name="content" rows="5"></textarea>
+          <input class="board-btn" type="submit">
+        </form>
+      <?php } ?>
     <?php } else { ?>
       <a href="register.php" class="board-btn">註冊</a>
       <a href="login.php" class="board-btn">登入</a>
