@@ -30,6 +30,9 @@ require_once('conn.php');
     ?>
       <a href="logout.php" class="board-btn">登出</a>
       <span class="board-btn update-nickname">編輯暱稱</span>
+      <?php if ($role === 0) { ?>
+        <a href="admin_user.php" class="board-btn">進入後台</a>
+      <?php } ?>
       <h2><?php echo ($role !== 0 ? ('你好! ') : ('您好! 管理者: ')) . $nickname ?></h2>
       <form class="hide board-comment" method="POST" action="update_user.php">
         <div class="board-input">

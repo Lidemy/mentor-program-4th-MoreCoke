@@ -116,3 +116,29 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  color: #5c9edc;
+  font-size: 20px;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #5c9edc;
+  padding: 8px;
+}
+
+.admin-select {
+  display: inline-block;
+  margin-left: 16px;
+}
+
+.admin-select input {
+  margin-left: 16px;
+}
