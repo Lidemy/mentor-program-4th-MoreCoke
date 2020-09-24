@@ -45,6 +45,13 @@ require_once('conn.php');
         <h2 class="error">很抱歉，你遭停權，無法留言!</h2>
       <?php } else { ?>
         <h1>Comments</h1>
+        <?php
+        $errCode = isset($_GET['errCode']) ? $_GET['errCode'] : null;
+        if ($errCode === '1') { ?>
+          <h2 class="error">不得留空!</h2>
+        <?php
+        }
+        ?>
         <form class="board-comment" method="POST" action="handle_add_comment.php">
           <textarea class="board-comment__textarea" name="content" rows="5"></textarea>
           <input class="board-btn" type="submit">
