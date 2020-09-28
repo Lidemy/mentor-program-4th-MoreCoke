@@ -2,6 +2,16 @@
 session_start();
 require_once('conn.php');
 $username = $_SESSION['username'];
+$sql = 'SELECT role FROM morecoke_users WHERE username=?';
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('s', $username);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$role = $row['role'];
+if ($role !== 0) {
+  header('Location: index.php');
+}
 ?>
 
 <!DOCTYPE html>
