@@ -1,0 +1,274 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 25px 94px;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logo {
+  color: #333333;
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+}
+
+.blog-navlist {
+  display: flex;
+  align-items: baseline;
+  font-size: 16px;
+}
+
+.blog-navlist li ~ li {
+  padding-left: 21px;
+}
+
+.blog-navlist__item {
+  text-decoration: none;
+  color: #787878;
+}
+
+.blog-topic {
+  padding: 76px;
+  text-align: center;
+  color: #eeeeee;
+  background-image: linear-gradient(#000000, #434343);
+}
+
+.blog-topic h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 26px;
+}
+
+.blog-topic span {
+  font-size: 14px;
+}
+
+.blog-wrapper {
+  flex: 1;
+  margin: 0 auto;
+}
+
+.blog-block {
+  border: 1px solid #9a9a9a;
+  max-width: 900px;
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+.blog-block:not(:nth-last-child(1)) {
+  margin-bottom: 30px;
+}
+
+.blog-block__group {
+  width: 920px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: -50px;
+  margin-bottom: 116px;
+  background-color: white;
+}
+
+.blog-block__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.blog-block__title {
+  font-weight: bold;
+}
+
+.blog-block__edit-btn {
+  border: 1px solid #a8a8a8;
+  border-radius: 0;
+  color: #a8a8a8;
+  font-size: 14px;
+  padding: 12px;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.blog-block__time {
+  background-color: #eeeeee;
+  color: #8f8f8f;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.blog-block__content {
+  font-size: 14px;
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.blog-block__read-more {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 12px;
+  background-color: transparent;
+}
+
+footer {
+  background: #323232;
+  color: white;
+  padding: 11px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.error {
+  color: #a20606;
+  font-size: 20px;
+  margin: 16px 0px;
+  text-align: center;
+}
+
+/* login */
+
+.blog-block__login {
+  border: 1px solid #9a9a9a;
+  width: 527px;
+  box-sizing: border-box;
+  padding: 73px 65px;
+  margin-top: -50px;
+  margin-bottom: 116px;
+  background-color: white;
+}
+
+.blog-block__login-title {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 61px;
+}
+
+.blog-block__login-label {
+  margin-right: 21px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.blog-block__login-input {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 23px;
+  border: 1px solid black;
+}
+
+.blog-block__login-submit {
+  width: 100%;
+  height: 56px;
+  color: white;
+  margin-top: 73px;
+  background-image: linear-gradient(#000000, #434343);
+}
+
+/* admin */
+
+.blog-block__admin {
+  border: 1px solid #9a9a9a;
+  width: 920px;
+  box-sizing: border-box;
+  padding: 10px 10px 50px 10px;
+  margin-top: -50px;
+  margin-bottom: 116px;
+  background-color: white;
+}
+
+.admin-post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #9a9a9a;
+}
+
+.admin-post__time {
+  font-size: 14px;
+  color: #8f8f8f;
+}
+
+.admin-post__setting-btn {
+  display: inline-block;
+  border: 1px solid #8f8f8f;
+  border-radius: 2px;
+  padding: 11px 12px;
+  color: #8f8f8f;
+  text-decoration: none;
+  margin-left: 8px;
+}
+
+/* edit_post */
+
+.blog-block__edit {
+  width: 920px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-top: -50px;
+  margin-bottom: 146px;
+  background-color: white;
+}
+
+.blog-block__edit-form {
+  border: 1px solid #9a9a9a;
+  padding: 30px;
+}
+
+.edit-title {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.blog-block__edit-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #d7d7d7;
+  padding: 12px 11px;
+  margin-bottom: 20px;
+}
+
+.blog-block__edit-input::placeholder {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.blog-block__edit-textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.blog-block__edit-submit {
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #737373;
+  width: 133px;
+  height: 41px;
+  float: right;
+}
+
+.clearboth {
+  clear: both;
+}
