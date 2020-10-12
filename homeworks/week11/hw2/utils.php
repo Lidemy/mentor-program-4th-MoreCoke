@@ -7,3 +7,8 @@ function isSessionUser()
   }
   return $username;
 }
+
+function escape($str)
+{
+  return htmlspecialchars($str, ENT_QUOTES);
+}

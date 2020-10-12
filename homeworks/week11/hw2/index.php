@@ -1,5 +1,6 @@
 <?php
 require_once('conn.php');
+require_once('utils.php');
 session_start();
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $limit = 5;
@@ -45,10 +46,10 @@ $result = $stmt->get_result();
   <div class="blog-wrapper">
     <div class="blog-block__group">
       <?php while ($row = $result->fetch_assoc()) {
-        $title = $row['title'];
-        $content = $row['content'];
-        $created_at = $row['created_at'];
-        $id = $row['id'] ?>
+        $title = escape($row['title']);
+        $content = escape($row['content']);
+        $created_at = escape($row['created_at']);
+        $id = escape($row['id']) ?>
         <div class="blog-block">
           <div class="blog-block__header">
             <div class="blog-block__title">

@@ -41,10 +41,10 @@ $result = $stmt->get_result();
   <div class="blog-wrapper">
     <div class="blog-block__admin">
       <?php while ($row = $result->fetch_assoc()) {
-        $id = $row['id'];
-        $title = $row['title'];
-        $content = $row['content'];
-        $created_at = $row['created_at'];
+        $id = escape($row['id']);
+        $title = escape($row['title']);
+        $content = escape($row['content']);
+        $created_at = escape($row['created_at']);
       ?>
         <div class="admin-post">
           <div><?= $title ?></div>
