@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('conn.php');
+require_once('utils.php');
 $username = $_SESSION['username'];
 $sql = 'SELECT role FROM morecoke_users WHERE username=?';
 $stmt = $conn->prepare($sql);
@@ -11,6 +12,7 @@ $row = $result->fetch_assoc();
 $role = $row['role'];
 if ($role !== 0) {
   header('Location: index.php');
+  die();
 }
 ?>
 
@@ -66,9 +68,9 @@ if ($role !== 0) {
           $role = $row['role'];
         ?>
           <tr>
-            <td><?= $id ?></td>
-            <td><?= $username ?></td>
-            <td><?= $nickname ?></td>
+            <td><?= escape($id) ?></td>
+            <td><?= escape($username) ?></td>
+            <td><?= escape($nickname) ?></td>
             <td>
               <span><?= strRole($role) ?></span>
               <form class="admin-select" action="update_admin_user.php" method="POST">
