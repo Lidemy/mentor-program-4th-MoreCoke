@@ -22,7 +22,7 @@ if (!$result) {
     'message' => $conn->error
   );
   $json = json_encode($arr, JSON_UNESCAPED_UNICODE);
-  echo $josn;
+  echo $json;
 }
 $arr = array(
   'ok' => true,

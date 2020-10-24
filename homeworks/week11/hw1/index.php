@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('conn.php');
+require_once('utils.php');
 ?>
 
 <!DOCTYPE html>
@@ -96,13 +97,13 @@ require_once('conn.php');
           <div class="card-avatar"></div>
           <div class="card-body">
             <div class="card-info">
-              <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
-                <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
-              <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
+              <span class="card-author"><?= escape($row['nickname']) ?>(@
+                <?= escape($row['username']) ?>)</span>
+              <span class="card-time"><?= escape($row['created_at']) ?></span>
               <a href="update_comment.php?id=<?= $row['id'] ?>">編輯</a>
               <a href="delete_comment.php?id=<?= $row['id'] ?>">刪除</a>
             </div>
-            <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
+            <div class="card-content"><?= escape($row['content']) ?></div>
           </div>
         </div>
       <?php }
@@ -112,15 +113,15 @@ require_once('conn.php');
           <div class="card-avatar"></div>
           <div class="card-body">
             <div class="card-info">
-              <span class="card-author"><?= htmlspecialchars($row['nickname'], ENT_QUOTES) ?>(@
-                <?= htmlspecialchars($row['username'], ENT_QUOTES) ?>)</span>
-              <span class="card-time"><?= htmlspecialchars($row['created_at'], ENT_QUOTES) ?></span>
+              <span class="card-author"><?= escape($row['nickname']) ?>(@
+                <?= escape($row['username']) ?>)</span>
+              <span class="card-time"><?= escape($row['created_at']) ?></span>
               <?php if (isset($_SESSION['username']) && $row['username'] === $username) { ?>
                 <a href="update_comment.php?id=<?= $row['id'] ?>">編輯</a>
                 <a href="delete_comment.php?id=<?= $row['id'] ?>">刪除</a>
               <?php } ?>
             </div>
-            <div class="card-content"><?= htmlspecialchars($row['content'], ENT_QUOTES) ?></div>
+            <div class="card-content"><?= escape($row['content']) ?></div>
           </div>
         </div>
     <?php }

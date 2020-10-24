@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('conn.php');
+require_once('utils.php');
 
 $username = $_SESSION['username'];
 $id = $_GET['id'];
@@ -11,39 +12,29 @@ $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 $role = $row['role'];
-$nickname = $row["nickname"];
+$nickname = $row['nickname'];
 
-if ($role === 0) {
-  $sql = 'SELECT ' .
-    'comments.id, comments.content ' .
-    'FROM ' .
-    'morecoke_comments AS comments ' .
-    'LEFT JOIN ' .
-    'morecoke_users AS users ' .
-    'ON ' .
-    'comments.username=users.username ' .
-    'WHERE ' .
-    'comments.id=?';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $id);
-  $stmt->execute();
-} else {
-  $sql = 'SELECT ' .
-    'comments.id, comments.content ' .
-    'FROM ' .
-    'morecoke_comments AS comments ' .
-    'LEFT JOIN ' .
-    'morecoke_users AS users ' .
-    'ON ' .
-    'comments.username=users.username ' .
-    'WHERE ' .
-    'comments.id=? AND comments.username=?';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("is", $id, $username);
-  $stmt->execute();
-}
+$sql = 'SELECT ' .
+  'comments.id, comments.content, comments.username ' .
+  'FROM ' .
+  'morecoke_comments AS comments ' .
+  'LEFT JOIN ' .
+  'morecoke_users AS users ' .
+  'ON ' .
+  'comments.username=users.username ' .
+  'WHERE ' .
+  'comments.id=?';
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
+
+// 避免非管理員的人員透過改網址 id 改別人留言
+if ($row['username'] !== $username) {
+  header('Location: index.php');
+  die();
+}
 $content = $row["content"];
 ?>
 
@@ -71,7 +62,7 @@ $content = $row["content"];
     }
     ?>
     <form class="board-comment" method="POST" action="handle_update_comment.php">
-      <textarea class="board-comment__textarea" name="content" rows="5"><?= $content ?></textarea>
+      <textarea class="board-comment__textarea" name="content" rows="5"><?= escape($content) ?></textarea>
       <input type="hidden" name="comment_id" value="<?= $id ?>">
       <input class="board-btn" type="submit">
     </form>

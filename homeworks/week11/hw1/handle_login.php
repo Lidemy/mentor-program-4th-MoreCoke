@@ -5,7 +5,7 @@ require_once('utils.php');
 
 $username = $_POST['username'];
 $password = $_POST['password'];
-$sql = 'SELECT * FROM morecoke_users WHERE username LIKE ?';
+$sql = 'SELECT * FROM morecoke_users WHERE username=?';
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('s', $username);
 $stmt->execute();
