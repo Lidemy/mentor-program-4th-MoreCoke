@@ -33,20 +33,19 @@
       }
       $(document).ready(() => {
         const commentsDom = $('.comments');
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-          let response = JSON.parse(xhr.response);
-          if (response.ok) {
-            response.discussions.forEach((comment) => {
+        const commentsUrl =
+          'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke';
+        fetch(commentsUrl)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.ok) {
+              console.log(data.message);
+              return;
+            }
+            data.discussions.forEach((comment) => {
               prependCommentToDom(commentsDom, comment);
             });
-          }
-        };
-        xhr.open(
-          'GET',
-          'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke'
-        );
-        xhr.send();
+          });
 
         $('.add-comment-form').submit((e) => {
           e.preventDefault();
@@ -63,6 +62,7 @@
             .then((res) => res.json())
             .then((data) => {
               if (!data.ok) {
+                console.log(data.message);
                 return;
               }
               prependCommentToDom(commentsDom, data.message);
