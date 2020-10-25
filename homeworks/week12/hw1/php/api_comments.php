@@ -43,7 +43,7 @@ while ($row = $result->fetch_assoc()) {
 
 $json = array(
   'ok' => true,
-  'message' => $discussions
+  'discussions' => $discussions
 );
 
 $response = json_encode($json);

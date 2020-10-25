@@ -11,42 +11,94 @@
       crossorigin="anonymous"
     />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      function escapeHtml(unsafe) {
+        return unsafe
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+      function prependCommentToDom(dom, comment, isPrepend) {
+        const temp = `<div class="card mt-3">
+                                <div class="card-body">
+                                  <h5 class="card-title">${comment.nickname}</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted">${comment.created_at}</h6>
+                                  <p class="card-text">${comment.content}</p>
+                                </div>
+                              </div>`;
+
+        dom.prepend(temp);
+      }
+      $(document).ready(() => {
+        const commentsDom = $('.comments');
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          let response = JSON.parse(xhr.response);
+          if (response.ok) {
+            response.discussions.forEach((comment) => {
+              prependCommentToDom(commentsDom, comment);
+            });
+          }
+        };
+        xhr.open(
+          'GET',
+          'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke'
+        );
+        xhr.send();
+
+        $('.add-comment-form').submit((e) => {
+          e.preventDefault();
+          const url =
+            'http://localhost/MoreCoke/w12_board/php/api_add_comments.php?site_key=morecoke';
+          const formData = new FormData();
+          formData.set('site_key', 'morecoke');
+          formData.set('nickname', $('input[name="nickname"]').val());
+          formData.set('content', $('textarea[name="content"]').val());
+          fetch(url, {
+            method: 'POST',
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (!data.ok) {
+                return;
+              }
+              prependCommentToDom(commentsDom, data.message);
+            })
+            .then(() => {
+              $('input[name="nickname"]').val('');
+              $('textarea[name="content"]').val('');
+            });
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="container">
       <form class="add-comment-form">
         <div class="form-group">
           <label for="nickname">暱稱</label>
-          <input type="text" class="form-control" id="nickname" />
+          <input
+            type="text"
+            class="form-control"
+            name="nickname"
+            id="nickname"
+          />
         </div>
         <div class="form-group">
           <label for="content">內容</label>
-          <textarea class="form-control" id="content" rows="3"></textarea>
+          <textarea
+            class="form-control"
+            name="content"
+            id="content"
+            rows="3"
+          ></textarea>
         </div>
         <button type="submit" class="btn btn-primary">提交</button>
       </form>
-      <div class="comments">
-        <div class="card mt-3">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
-        <div class="card mt-3">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
-      </div>
+      <div class="comments"></div>
     </div>
   </body>
 </html>

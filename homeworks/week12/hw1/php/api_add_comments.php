@@ -28,9 +28,18 @@ if (!$result) {
   die();
 }
 
+$sql = 'SELECT * FROM morecoke_discussions ORDER BY id DESC LIMIT 1';
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
 $json = array(
   'ok' => true,
-  'message' => 'success'
+  'message' => array(
+    'nickname' => $row['nickname'],
+    'content' => $row['content'],
+    'created_at' => $row['created_at']
+  )
 );
 $response = json_encode($json);
 echo $response;
