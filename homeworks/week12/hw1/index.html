@@ -38,12 +38,11 @@
         $.ajax({
           url: commentsUrl,
         }).done((data) => {
-          let response = JSON.parse(data);
-          if (!response.ok) {
-            console.log(response.message);
+          if (!data.ok) {
+            console.log(data.message);
             return;
           }
-          response.discussions.forEach((comment) =>
+          data.discussions.forEach((comment) =>
             prependCommentToDom(commentsDom, comment)
           );
         });
@@ -61,12 +60,11 @@
             url,
             data: formData,
           }).done((data) => {
-            let response = JSON.parse(data);
-            if (!response.ok) {
-              console.log(response.message);
+            if (!data.ok) {
+              console.log(data.message);
               return;
             }
-            prependCommentToDom(commentsDom, response.message);
+            prependCommentToDom(commentsDom, data.message);
             $('input[name="nickname"]').val('');
             $('textarea[name="content"]').val('');
           });

@@ -1,5 +1,8 @@
 <?php
 require_once('conn.php');
+header('Content-type:application/json;charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
 if (empty($_POST['nickname']) || empty($_POST['content']) || empty($_POST['site_key'])) {
   $json = array(
     'ok' => false,
