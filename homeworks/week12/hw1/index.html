@@ -35,42 +35,41 @@
         const commentsDom = $('.comments');
         const commentsUrl =
           'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke';
-        fetch(commentsUrl)
-          .then((res) => res.json())
-          .then((data) => {
-            if (!data.ok) {
-              console.log(data.message);
-              return;
-            }
-            data.discussions.forEach((comment) => {
-              prependCommentToDom(commentsDom, comment);
-            });
-          });
-
+        $.ajax({
+          url: commentsUrl,
+        }).done((data) => {
+          let response = JSON.parse(data);
+          if (!response.ok) {
+            console.log(response.message);
+            return;
+          }
+          response.discussions.forEach((comment) =>
+            prependCommentToDom(commentsDom, comment)
+          );
+        });
         $('.add-comment-form').submit((e) => {
           e.preventDefault();
           const url =
             'http://localhost/MoreCoke/w12_board/php/api_add_comments.php?site_key=morecoke';
-          const formData = new FormData();
-          formData.set('site_key', 'morecoke');
-          formData.set('nickname', $('input[name="nickname"]').val());
-          formData.set('content', $('textarea[name="content"]').val());
-          fetch(url, {
-            method: 'POST',
-            body: formData,
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (!data.ok) {
-                console.log(data.message);
-                return;
-              }
-              prependCommentToDom(commentsDom, data.message);
-            })
-            .then(() => {
-              $('input[name="nickname"]').val('');
-              $('textarea[name="content"]').val('');
-            });
+          const formData = {
+            site_key: 'morecoke',
+            nickname: $('input[name="nickname"]').val(),
+            content: $('textarea[name="content"]').val(),
+          };
+          $.ajax({
+            type: 'POST',
+            url,
+            data: formData,
+          }).done((data) => {
+            let response = JSON.parse(data);
+            if (!response.ok) {
+              console.log(response.message);
+              return;
+            }
+            prependCommentToDom(commentsDom, response.message);
+            $('input[name="nickname"]').val('');
+            $('textarea[name="content"]').val('');
+          });
         });
       });
     </script>
