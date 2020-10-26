@@ -23,9 +23,15 @@
       function prependCommentToDom(dom, comment, isPrepend) {
         const temp = `<div class="card mt-3">
                                 <div class="card-body">
-                                  <h5 class="card-title">${comment.nickname}</h5>
-                                  <h6 class="card-subtitle mb-2 text-muted">${comment.created_at}</h6>
-                                  <p class="card-text">${comment.content}</p>
+                                  <h5 class="card-title">${escapeHtml(
+                                    comment.nickname
+                                  )}</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted">${escapeHtml(
+                                    comment.created_at
+                                  )}</h6>
+                                  <p class="card-text">${escapeHtml(
+                                    comment.content
+                                  )}</p>
                                 </div>
                               </div>`;
 
