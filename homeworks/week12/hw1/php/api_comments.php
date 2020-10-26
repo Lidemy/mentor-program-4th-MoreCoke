@@ -15,9 +15,26 @@ if (empty($_GET['site_key'])) {
 
 
 $siteKey = $_GET['site_key'];
-$sql = 'SELECT nickname, content, created_at FROM morecoke_discussions where site_key=?';
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('s', $siteKey);
+if (empty($_GET['limit'])) {
+  $sql = 'SELECT nickname, content, created_at FROM morecoke_discussions where site_key=? ORDER BY created_at DESC';
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('s', $siteKey);
+  $isTotal = true;
+} else {
+  $limit = (int)$_GET['limit'];
+  $sql = sprintf('SELECT COUNT(*) AS total FROM morecoke_discussions where site_key="%s"', $siteKey);
+  $totalResult = $conn->query($sql);
+  $row = $totalResult->fetch_assoc();
+  $total = $row['total'];
+  $isTotal = false;
+  if ($limit >= $total) {
+    $limit = $total;
+    $isTotal = true;
+  }
+  $sql = 'SELECT nickname, content, created_at FROM morecoke_discussions where site_key=? ORDER BY created_at DESC limit ?';
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('si', $siteKey, $limit);
+}
 $result = $stmt->execute();
 
 if (!$result) {
@@ -45,6 +62,7 @@ while ($row = $result->fetch_assoc()) {
 
 $json = array(
   'ok' => true,
+  'isTotal' => $isTotal,
   'discussions' => $discussions
 );
 

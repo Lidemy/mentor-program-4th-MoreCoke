@@ -29,23 +29,38 @@
                                 </div>
                               </div>`;
 
-        dom.prepend(temp);
+        if (isPrepend) {
+          dom.prepend(temp);
+        } else {
+          dom.append(temp);
+        }
       }
       $(document).ready(() => {
         const commentsDom = $('.comments');
-        const commentsUrl =
-          'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke';
-        $.ajax({
-          url: commentsUrl,
-        }).done((data) => {
-          if (!data.ok) {
-            console.log(data.message);
-            return;
+        let limit = 5;
+        function getCommentData(num) {
+          let url = `http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke&limit=${num}`;
+          if (!num) {
+            url =
+              'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke';
           }
-          data.discussions.forEach((comment) =>
-            prependCommentToDom(commentsDom, comment)
-          );
-        });
+          $.ajax({
+            url,
+          }).done((data) => {
+            if (!data.ok) {
+              console.log(data.message);
+              return;
+            }
+            if (data.isTotal) {
+              $('.btn-load').remove();
+            }
+            commentsDom.empty();
+            data.discussions.forEach((comment) =>
+              prependCommentToDom(commentsDom, comment)
+            );
+          });
+        }
+
         $('.add-comment-form').submit((e) => {
           e.preventDefault();
           const url =
@@ -64,11 +79,18 @@
               console.log(data.message);
               return;
             }
-            prependCommentToDom(commentsDom, data.message);
+            prependCommentToDom(commentsDom, data.message, true);
             $('input[name="nickname"]').val('');
             $('textarea[name="content"]').val('');
           });
         });
+
+        $('.btn-load').click(() => {
+          limit += 5;
+          getCommentData(limit);
+        });
+
+        getCommentData(5);
       });
     </script>
   </head>
@@ -95,7 +117,8 @@
         </div>
         <button type="submit" class="btn btn-primary">提交</button>
       </form>
-      <div class="comments"></div>
+      <div class="comments mb-3"></div>
+      <button class="btn btn-primary btn-load mb-3">載入更多</button>
     </div>
   </body>
 </html>
