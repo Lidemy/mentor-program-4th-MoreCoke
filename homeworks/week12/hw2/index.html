@@ -29,6 +29,15 @@
         const addInput = $('input[name="add"]');
         const todoList = $('.todo-list');
 
+        const escapeHtml = (unsafe) => {
+          return unsafe
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+        };
+
         const renderTodoList = (e) => {
           let target;
           if (e) {
@@ -67,9 +76,9 @@
                 <input type="checkbox" class="mr-2 todo-mark" ${
                   element.isDone ? 'checked' : ''
                 }/>
-                <span class="todo ${element.isDone ? 'done' : ''}">${
+                <span class="todo ${element.isDone ? 'done' : ''}">${escapeHtml(
               element.todo
-            }</span>
+            )}</span>
               </div>
               <div>
                 <button class="btn btn-warning mr-3 todo-edit">編輯</button>
