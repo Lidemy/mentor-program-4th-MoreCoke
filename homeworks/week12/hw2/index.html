@@ -24,7 +24,7 @@
     ></script>
     <script>
       $(document).ready(() => {
-        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+        let todos;
         const filterTodoType = [
           { todoClass: 'todo-all', type: 'all' },
           { todoClass: 'todo-done__all', type: 'done' },
@@ -94,6 +94,46 @@
             todoList.prepend(temp);
           });
           localStorage.setItem('todos', JSON.stringify(todos));
+        };
+
+        const initTodos = () => {
+          const currentUrlStr = window.location.search;
+          const currentUrl = new URLSearchParams(currentUrlStr);
+          if (currentUrl.has('username')) {
+            const username = currentUrl.get('username');
+            const url =
+              'http://localhost/MoreCoke/w12_todoList/php/api_todos.php?username=' +
+              username;
+            $.ajax(url)
+              .done((res) => {
+                todos = res;
+                renderTodoList();
+              })
+              .fail((res) => console.log('fail ', res));
+          } else {
+            todos = JSON.parse(localStorage.getItem('todos')) || [];
+            renderTodoList();
+          }
+        };
+
+        const renderOldTodoModal = () => {
+          const usernameList = $('.todo-user-list');
+          const url =
+            'http://localhost/MoreCoke/w12_todoList/php/api_usernames.php';
+          $.ajax(url)
+            .done((res) => {
+              $.each(res, function (index, element) {
+                const temp = `
+                <li class="list-group-item" style="cursor:pointer">
+                  <form>
+                    ${element.username}
+                    <input type="hidden" name="username" value="${element.username}" />
+                  </form>
+                </li>`;
+                usernameList.append(temp);
+              });
+            })
+            .fail((res) => console.log('fail ', res));
         };
 
         const handleFilterTodo = (e) => {
@@ -180,18 +220,24 @@
             .fail((res) => console.log('failed', res));
         };
 
-        const handleLoadingOldTodoModal = () => {};
+        // 這裡用用箭頭函式 (e)=> 的話， this 會是 window 而非 li
+        const handleLoadingOldTodoModal = function (e) {
+          $(this).find('form').submit();
+        };
 
-        renderTodoList();
-        $('.todo-add').click(handleAddTodo);
+        initTodos();
+
+        $('.todo-add').submit(handleAddTodo);
 
         $('.todo-save').submit(handleSaveTodoList);
 
-        $('.todo-loading-old-data').click(handleLoadingOldTodoModal);
+        $('.todo-loading-old-data').click(renderOldTodoModal);
+
+        $('.todo-user-list').delegate('li', 'click', handleLoadingOldTodoModal);
 
         $('.todo-btns').delegate('button', 'click', handleFilterTodo);
 
-        $('.todo-list').delegate('li', 'click', function (e) {
+        todoList.delegate('li', 'click', function (e) {
           const li = $(this);
           if ($(e.target).hasClass('todo-edit')) {
             handleEditTodo(li);
@@ -249,13 +295,7 @@
             </button>
 
             <!-- saveModal -->
-            <div
-              class="modal fade"
-              id="saveModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+            <div class="modal fade" id="saveModal" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -315,13 +355,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <ul class="list-group">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Morbi leo risus</li>
-                      <li class="list-group-item">Porta ac consectetur ac</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
+                    <ul class="list-group todo-user-list"></ul>
                   </div>
                   <div class="modal-footer">
                     <button
