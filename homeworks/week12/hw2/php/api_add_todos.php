@@ -5,9 +5,9 @@ header('Access-Control-Allow-Origin: *');
 
 $username = $_POST['username'];
 $todoList = $_POST['todo_list'];
-$sql = 'INSERT INTO morecoke_todos (username, todo_list) VALUE (?,?)';
+$sql = 'INSERT INTO morecoke_todos (username, todo_list) VALUE (?,?) ON DUPLICATE KEY UPDATE todo_list=?';
 $stmt = $conn->prepare($sql);
-$stmt->bind_param('ss', $username, $todoList);
+$stmt->bind_param('sss', $username, $todoList, $todoList);
 $result = $stmt->execute();
 if (!$result) {
   $json = array(

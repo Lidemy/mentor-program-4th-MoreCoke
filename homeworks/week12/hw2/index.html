@@ -159,27 +159,15 @@
         };
 
         const handleSaveTodoList = (e) => {
-          const currentUrlStr = window.location.href;
-          const currentUrl = new URL(currentUrlStr);
-          let url;
-          let formData;
-          if (currentUrl.searchParams.has('username')) {
-            e.preventDefault();
-            const username = currentUrl.searchParams.get('username');
-            url = `http://localhost/MoreCoke/w12_todoList/php/api_update_todos.php?username=${username}`;
-            formData = {
-              username,
-              todo_list: JSON.stringify(todos),
-            };
-          } else {
-            if (!$('input[name="username"]').val().trim()) return;
-            url =
-              'http://localhost/MoreCoke/w12_todoList/php/api_add_todos.php';
-            formData = {
-              username: $('input[name="username"]').val(),
-              todo_list: JSON.stringify(todos),
-            };
-          }
+          const username = $('input[name="username"]').val().trim();
+          if (!username) return;
+          const url =
+            'http://localhost/MoreCoke/w12_todoList/php/api_add_todos.php';
+
+          const formData = {
+            username,
+            todo_list: JSON.stringify(todos),
+          };
           $.ajax({
             method: 'POST',
             url,
