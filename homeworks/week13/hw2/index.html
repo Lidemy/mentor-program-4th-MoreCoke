@@ -19,6 +19,82 @@
       }
     </style>
     <script>
+      let siteKey = '';
+      let apiUrl = '';
+      let containerElement = null;
+      let commentDOM = null;
+      let lastId = null;
+      let isEnd = false;
+      const loadMoreButtonHTML =
+        '<button class="load-more btn btn-primary">載入更多</button>';
+      const formTemplate = `
+      <div>
+        <form class="add-comment-form">
+          <div class="form-group">
+            <label for="form-nickname">暱稱</label>
+            <input
+              name="nickname"
+              type="text"
+              class="form-control"
+              id="form-nickname"
+            />
+          </div>
+          <div class="form-group">
+            <label for="content-textarea">留言內容</label>
+            <textarea
+              name="content"
+              class="form-control"
+              id="content-textarea"
+              rows="3"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">送出</button>
+        </form>
+        <div class="comments"></div>
+      </div>`;
+
+      function init(options) {
+        siteKey = options.siteKey;
+        apiUrl = options.apiUrl;
+        containerElement = $(options.containerSelector);
+        containerElement.append(formTemplate);
+      }
+      $(document).ready(() => {
+        init({
+          siteKey: 'morecoke',
+          apiUrl: 'http://localhost/MoreCoke/w12_board/php',
+          containerSelector: '.comments-area',
+        });
+        commentDOM = $('.comments');
+        getComments();
+
+        $('.comments').on('click', '.load-more', () => {
+          getComments();
+        });
+
+        $('.add-comment-form').submit((e) => {
+          e.preventDefault();
+          const newCommentData = {
+            site_key: siteKey,
+            nickname: $('input[name=nickname]').val(),
+            content: $('textarea[name=content]').val(),
+          };
+          $.ajax({
+            type: 'POST',
+            url: `${apiUrl}/api_add_comments.php?site_key=morecoke`,
+            data: newCommentData,
+          }).done(function (data) {
+            if (!data.ok) {
+              alert(data.message);
+              return;
+            }
+            $('input[name=nickname]').val('');
+            $('textarea[name=content]').val('');
+            appendCommentToDOM(commentDOM, newCommentData, true);
+          });
+        });
+      });
+
       function escape(toOutput) {
         return toOutput
           .replace(/\&/g, '&amp;')
@@ -33,7 +109,7 @@
         const html = `
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">${comment.id} ${escape(
+            <h5 class="card-title">${comment.created_at} ${escape(
           comment.nickname
         )}</h5>
             <p class="card-text">${escape(comment.content)}</p>
@@ -48,7 +124,7 @@
       }
 
       function getCommentsAPI(siteKey, before, cb) {
-        let url = `http://localhost:8080/huli/be101/board-api/api_comments.php?site_key=${siteKey}`;
+        let url = `${apiUrl}/api_comments.php?site_key=${siteKey}`;
         if (before) {
           url += '&before=' + before;
         }
@@ -58,44 +134,6 @@
           cb(data);
         });
       }
-
-      const siteKey = 'huli';
-      const loadMoreButtonHTML =
-        '<button class="load-more btn btn-primary">載入更多</button>';
-      let lastId = null;
-      let isEnd = false;
-
-      $(document).ready(() => {
-        const commentDOM = $('.comments');
-        getComments();
-
-        $('.comments').on('click', '.load-more', () => {
-          getComments();
-        });
-
-        $('.add-comment-form').submit((e) => {
-          e.preventDefault();
-          const newCommentData = {
-            site_key: 'huli',
-            nickname: $('input[name=nickname]').val(),
-            content: $('textarea[name=content]').val(),
-          };
-          $.ajax({
-            type: 'POST',
-            url:
-              'http://localhost:8080/huli/be101/board-api/api_add_comments.php',
-            data: newCommentData,
-          }).done(function (data) {
-            if (!data.ok) {
-              alert(data.message);
-              return;
-            }
-            $('input[name=nickname]').val('');
-            $('textarea[name=content]').val('');
-            appendCommentToDOM(commentDOM, newCommentData, true);
-          });
-        });
-      });
 
       function getComments() {
         const commentDOM = $('.comments');
@@ -128,28 +166,7 @@
 
   <body>
     <div class="container">
-      <form class="add-comment-form">
-        <div class="form-group">
-          <label for="form-nickname">暱稱</label>
-          <input
-            name="nickname"
-            type="text"
-            class="form-control"
-            id="form-nickname"
-          />
-        </div>
-        <div class="form-group">
-          <label for="content-textarea">留言內容</label>
-          <textarea
-            name="content"
-            class="form-control"
-            id="content-textarea"
-            rows="3"
-          ></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">送出</button>
-      </form>
-      <div class="comments"></div>
+      <div class="comments-area"></div>
     </div>
   </body>
 </html>
