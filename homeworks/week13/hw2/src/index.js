@@ -1,73 +1,87 @@
 import $ from 'jquery';
 
 import { addComments, getComments } from './api';
-import { cssTemplate, loadMoreButtonHTML, formTemplate } from './template';
-import { appendCommentToDOM } from './utils';
-
-let siteKey = '';
-let apiUrl = '';
-let containerElement = null;
-let commentDOM = null;
-let lastId = null;
-let isEnd = false;
+import { cssTemplate, getLoadMoreButton, getForm } from './template';
+import { appendCommentToDOM, appendStyle } from './utils';
 
 export function init(options) {
+  let siteKey = '';
+  let apiUrl = '';
+  let containerElement = null;
+  let commentDOM = null;
+  let lastId = null;
+  let isEnd = false;
+  let loadMoreClassName;
+  let commentsClassName;
+  let formClassName;
+  let loadMoreSelector;
+  let commentsSelector;
+  let formSelector;
+
   siteKey = options.siteKey;
   apiUrl = options.apiUrl;
+  loadMoreClassName = `${siteKey}-load-more`;
+  commentsClassName = `${siteKey}-comments`;
+  formClassName = `${siteKey}-add-comment-form`;
+  loadMoreSelector = `.${loadMoreClassName}`;
+  commentsSelector = `.${commentsClassName}`;
+  formSelector = `.${formClassName}`;
+
   containerElement = $(options.containerSelector);
-  containerElement.append(formTemplate);
-  const styleElement = document.createElement('style');
-  styleElement.type = 'text/css';
-  styleElement.appendChild(document.createTextNode(cssTemplate));
-  document.head.appendChild(styleElement);
-  commentDOM = $('.comments');
+  containerElement.append(getForm(formClassName, commentsClassName));
+  appendStyle(cssTemplate);
+
+  commentDOM = $(commentsSelector);
   getNewComments();
 
-  $('.comments').on('click', '.load-more', () => {
+  $(commentsSelector).on('click', loadMoreSelector, () => {
     getNewComments();
   });
 
-  $('.add-comment-form').submit((e) => {
+  $(formSelector).submit((e) => {
     e.preventDefault();
+    const nickNameDOM = $(`${formSelector} input[name=nickname]`);
+    const contentDOM = $(`${formSelector} textarea[name=content]`);
     const newCommentData = {
       site_key: siteKey,
-      nickname: $('input[name=nickname]').val(),
-      content: $('textarea[name=content]').val(),
+      nickname: nickNameDOM.val(),
+      content: contentDOM.val(),
     };
     addComments(apiUrl, siteKey, newCommentData, (data) => {
       if (!data.ok) {
         alert(data.message);
         return;
       }
-      $('input[name=nickname]').val('');
-      $('textarea[name=content]').val('');
+      nickNameDOM.val('');
+      contentDOM.val('');
       appendCommentToDOM(commentDOM, newCommentData, true);
     });
   });
-}
 
-function getNewComments() {
-  $('.load-more').hide();
-  if (isEnd) {
-    return;
-  }
-  getComments(apiUrl, siteKey, lastId, (data) => {
-    if (!data.ok) {
-      alert(data.message);
+  function getNewComments() {
+    $(loadMoreSelector).hide();
+    if (isEnd) {
       return;
     }
+    getComments(apiUrl, siteKey, lastId, (data) => {
+      if (!data.ok) {
+        alert(data.message);
+        return;
+      }
 
-    const comments = data.discussions;
-    for (let comment of comments) {
-      appendCommentToDOM(commentDOM, comment);
-    }
-    let length = comments.length;
-    if (length === 0) {
-      isEnd = true;
-      $('.load-more').hide();
-    } else {
-      lastId = comments[length - 1].id;
-      $('.comments').append(loadMoreButtonHTML);
-    }
-  });
+      const comments = data.discussions;
+      for (let comment of comments) {
+        appendCommentToDOM(commentDOM, comment);
+      }
+      let length = comments.length;
+      if (length === 0) {
+        isEnd = true;
+        $(loadMoreSelector).hide();
+      } else {
+        lastId = comments[length - 1].id;
+        const getLoadMoreButtonHTML = getLoadMoreButton(loadMoreClassName);
+        $(commentsSelector).append(getLoadMoreButtonHTML);
+      }
+    });
+  }
 }

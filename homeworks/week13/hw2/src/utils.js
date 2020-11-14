@@ -8,6 +8,13 @@ export function escape(toOutput) {
     .replace(/\//g, '&#x2F');
 }
 
+export function appendStyle(cssTemplate) {
+  const styleElement = document.createElement('style');
+  styleElement.type = 'text/css';
+  styleElement.appendChild(document.createTextNode(cssTemplate));
+  document.head.appendChild(styleElement);
+}
+
 export function appendCommentToDOM(container, comment, isPrepend) {
   const html = `
         <div class="card">
