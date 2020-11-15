@@ -10915,7 +10915,12 @@ __webpack_require__.r(__webpack_exports__);
 
 const apiUrl = 'http://mentor-program.co/mtr04group3/MoreCoke/week12/hw1/php';
 
-function getCommentData(commentsDOM, siteKey, commentlimitNum) {
+function getCommentData(
+  commentsDOM,
+  btnLoadDOM,
+  siteKey,
+  commentlimitNum
+) {
   let url = `${apiUrl}/api_comments.php?site_key=${siteKey}&limit=${commentlimitNum}`;
   if (!commentlimitNum) {
     url = `${apiUrl}/api_comments.php?site_key=${siteKey}`;
@@ -10928,7 +10933,7 @@ function getCommentData(commentsDOM, siteKey, commentlimitNum) {
       return;
     }
     if (data.isTotal) {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btn-load').remove();
+      btnLoadDOM.remove();
     }
     commentsDOM.empty();
     data.discussions.forEach((comment) =>
@@ -11009,9 +11014,9 @@ function init(container, siteKey) {
 
   btnLoadDOM.click(() => {
     limit += 5;
-    (0,_api__WEBPACK_IMPORTED_MODULE_1__.getCommentData)(commentsDOM, siteKey, limit);
+    (0,_api__WEBPACK_IMPORTED_MODULE_1__.getCommentData)(commentsDOM, btnLoadDOM, siteKey, limit);
   });
-  (0,_api__WEBPACK_IMPORTED_MODULE_1__.getCommentData)(commentsDOM, siteKey, limit);
+  (0,_api__WEBPACK_IMPORTED_MODULE_1__.getCommentData)(commentsDOM, btnLoadDOM, siteKey, limit);
 }
 
 

@@ -3,7 +3,12 @@ import { prependCommentToDom } from './template';
 
 const apiUrl = 'http://mentor-program.co/mtr04group3/MoreCoke/week12/hw1/php';
 
-export function getCommentData(commentsDOM, siteKey, commentlimitNum) {
+export function getCommentData(
+  commentsDOM,
+  btnLoadDOM,
+  siteKey,
+  commentlimitNum
+) {
   let url = `${apiUrl}/api_comments.php?site_key=${siteKey}&limit=${commentlimitNum}`;
   if (!commentlimitNum) {
     url = `${apiUrl}/api_comments.php?site_key=${siteKey}`;
@@ -16,7 +21,7 @@ export function getCommentData(commentsDOM, siteKey, commentlimitNum) {
       return;
     }
     if (data.isTotal) {
-      $('.btn-load').remove();
+      btnLoadDOM.remove();
     }
     commentsDOM.empty();
     data.discussions.forEach((comment) =>

@@ -23,7 +23,7 @@ export function init(container, siteKey) {
 
   btnLoadDOM.click(() => {
     limit += 5;
-    getCommentData(commentsDOM, siteKey, limit);
+    getCommentData(commentsDOM, btnLoadDOM, siteKey, limit);
   });
-  getCommentData(commentsDOM, siteKey, limit);
+  getCommentData(commentsDOM, btnLoadDOM, siteKey, limit);
 }
