@@ -3,7 +3,7 @@ import $ from 'jquery';
 import { getCommentData, postCommentData } from './api';
 import { formTemplate } from './template';
 
-function init(container, siteKey) {
+export function init(container, siteKey) {
   $(container).append(formTemplate(siteKey));
   const commentsDOM = $(`#${siteKey} .comments`);
   const nicknameDOM = $(`#${siteKey} input[name="nickname"]`);
@@ -27,8 +27,3 @@ function init(container, siteKey) {
   });
   getCommentData(commentsDOM, siteKey, limit);
 }
-
-$(document).ready(() => {
-  init('.container', 'morecoke');
-  init('.container', 'morecoke1');
-});

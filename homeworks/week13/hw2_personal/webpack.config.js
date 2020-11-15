@@ -7,6 +7,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    library: 'commentPlugin',
   },
   devServer: {
     contentBase: './dist',
