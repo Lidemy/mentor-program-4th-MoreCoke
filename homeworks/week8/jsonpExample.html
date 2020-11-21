@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+	<p id="paragraphElement"></p> 
+
+	<!-- The server returns a call to the callback function 
+	(processData) that will handle the JSON data -->
+	<script> 
+		function processData(myObj) { 
+		console.log(myObj); 
+		var para= document.getElementById("paragraphElement"); 
+		for(var i=0; i<myObj.resultCount; i++){ 
+			para.innerHTML= para.innerHTML + myObj.results[i].trackName 
+							+ "<br>" ; 
+			} 
+		} 
+	</script> 
+	
+<!-- Calling the iTunes API to search for Jack Johnson's songs and return 
+		the first five items -->
+	<script src="https://itunes.apple.com/search?term=jack+johnson&limit=5
+	&callback=processData"></script> 
+</body> 
+</html>					 
