@@ -1,0 +1,116 @@
+.warning {
+  padding: 10px;
+  text-align: center;
+  background-color: $warning;
+  color: $danger;
+  font-weight: bold;
+}
+
+.error {
+  color: $danger;
+}
+
+.board {
+  background-color: white;
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 10px 30px;
+  box-shadow: 1px 1px 3px #e8e8e8;
+  border-radius: 5px;
+  &-btn {
+    @include button($secondary, 5px);
+  }
+  &-input {
+    margin-bottom: 10px;
+    input {
+      border: 1px solid $secondary;
+      padding: 5px;
+    }
+  }
+  &-comment__textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $secondary;
+  }
+  &-hr {
+    margin: 20px auto;
+    height: 2px;
+    background: #c8c8c8;
+    max-width: 95%;
+  }
+}
+
+.card {
+  display: flex;
+  margin: 20px 0;
+  &-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e4f0fb;
+    flex-shrink: 0;
+  }
+  &-body {
+    margin-left: 10px;
+  }
+  &-author {
+    color: $primary;
+    font-weight: bold;
+  }
+  &-time {
+    color: #a0a0a0;
+  }
+  &-content {
+    margin-top: 8px;
+    word-break: break-word;
+    white-space: pre-line;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: $primary;
+    border: 1px solid $primary;
+    padding: 10px;
+    margin: 0 5px;
+  }
+}
+
+.page-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin {
+  &-table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+      text-align: left;
+      color: $primary;
+      font-size: 20px;
+      border: 1px solid $primary;
+      padding: 8px;
+    }
+    td {
+      border: 1px solid $primary;
+      padding: 8px;
+    }
+  }
+  &-select {
+    display: inline-block;
+    margin-left: 16px;
+    input {
+      margin-left: 16px;
+    }
+  }
+}

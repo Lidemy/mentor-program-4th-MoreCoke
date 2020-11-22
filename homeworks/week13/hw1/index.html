@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>留言板</title>
+    <link rel="stylesheet" href="./all.css" />
+  </head>
+
+  <body>
+    <header class="warning">
+      注意！本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時請勿使用任何真實的帳號或密碼。
+    </header>
+    <main class="board">
+      <a href="#" class="board-btn">登出</a>
+      <span class="board-btn update-nickname">編輯暱稱</span>
+      <a href="#" class="board-btn">進入後台</a>
+      <h2>你好!</h2>
+      <form class="hide board-comment" method="POST" action="">
+        <div class="board-input">
+          <span>新的暱稱:</span>
+          <input type="text" name="nickname" />
+        </div>
+        <button class="board-btn" type="button"></button>送出</button>
+      </form>
+
+      <h2 class="error">很抱歉，你遭停權，無法留言!</h2>
+      <h1>Comments</h1>
+      <h2 class="error">不得留空!</h2>
+      <form class="board-comment">
+        <textarea
+          class="board-comment__textarea"
+          name="content"
+          rows="5"
+        ></textarea>
+        <button class="board-btn" type="button">送出</button>
+      </form>
+      <a href="#" class="board-btn">註冊</a>
+      <a href="#" class="board-btn">登入</a>
+      <h1>Comments</h1>
+      <h3>請登入發布留言</h3>
+      <div class="board-hr"></div>
+      <div class="card">
+        <div class="card-avatar"></div>
+        <div class="card-body">
+          <div class="card-info">
+            <span class="card-author">admin</span>
+            <span class="card-time">2020/11/08</span>
+            <a href="#">編輯</a>
+            <a href="#">刪除</a>
+          </div>
+          <div class="card-content">肚子餓</div>
+        </div>
+      </div>
+
+      <div class="page-info">
+        <span>總共有 1 筆留言，頁數:</span>
+        <span>1</span>
+      </div>
+      <div class="pagination">
+        <a href="#">第一頁</a>
+        <a href="#">上一頁</a>
+        <a href="#">下一頁</a>
+        <a href="#">最後一頁</a>
+      </div>
+    </main>
+  </body>
+  <script>
+    document
+      .querySelector('.board-comment')
+      .addEventListener('submit', function (e) {
+        return false;
+      });
+  </script>
+</html>
