@@ -45,10 +45,10 @@
         const commentsDom = $('.comments');
         let limit = 5;
         function getCommentData(num) {
-          let url = `http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke&limit=${num}`;
-          if (!num) {
-            url =
-              'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke';
+          let url =
+            'http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke';
+          if (num) {
+            url = `http://localhost/MoreCoke/w12_board/php/api_comments.php?site_key=morecoke&limit=${num}`;
           }
           $.ajax({
             url,
