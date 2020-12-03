@@ -25,6 +25,7 @@
     <script>
       $(document).ready(() => {
         let todos;
+        let activeTodoType = $('.todo-btns').children('.active');
         const filterTodoType = [
           { todoClass: 'todo-all', type: 'all' },
           { todoClass: 'todo-done__all', type: 'done' },
@@ -43,15 +44,9 @@
             .replace(/'/g, '&#039;');
         };
 
-        const renderTodoList = (e) => {
-          let target;
-          if (e) {
-            target = $(e.target);
-          } else {
-            target = $('.todo-btns').children('.active');
-          }
+        const renderTodoList = () => {
           const { type } = filterTodoType.find((element) =>
-            target.hasClass(element.todoClass)
+            activeTodoType.hasClass(element.todoClass)
           );
           let filterTodos = [];
           todoList.empty();
@@ -137,12 +132,12 @@
         };
 
         const handleFilterTodo = (e) => {
-          const target = $(e.target);
-          if (!target.hasClass('active')) {
+          activeTodoType = $(e.target);
+          if (!activeTodoType.hasClass('active')) {
             $('.active').removeClass('active');
-            target.addClass('active');
+            activeTodoType.addClass('active');
           }
-          renderTodoList(e);
+          renderTodoList();
         };
 
         const handleAddTodo = (e) => {
