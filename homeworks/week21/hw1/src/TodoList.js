@@ -1,13 +1,14 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable react/jsx-one-expression-per-line */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import TodoItem from './TodoItem';
 
 function TodoList() {
   const [todoList, setTodoList] = useState([]);
   const [todoAddInputValue, setTodoAddInputValue] = useState('');
+  const [todoType, setTodoType] = useState('all');
 
   // useEffect(() => {
   //   console.log('todoAddInputValue', todoAddInputValue);
@@ -64,6 +65,21 @@ function TodoList() {
     setTodoList(newTodoList);
   };
 
+  const filterTodoList = useMemo(() => {
+    switch (todoType) {
+      case 'all':
+        return todoList;
+      case 'done':
+        return todoList.filter((element) => element.isDone);
+      case 'undone':
+        return todoList.filter((element) => !element.isDone);
+      // case 'deleteAll':
+      //   return [];
+      default:
+        throw new Error("can't find todo filter type!");
+    }
+  }, [todoList, todoType]);
+
   const onAddInputValueChange = (e) => {
     setTodoAddInputValue(e.target.value);
   };
@@ -94,21 +110,42 @@ function TodoList() {
         </div>
       </div>
       <div className="d-flex justify-content-around mb-3 todo-btns">
-        <button className="btn btn-primary todo-all active" type="button">
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={() => setTodoType('all')}
+        >
           全部任務
         </button>
-        <button className="btn btn-success todo-done__all" type="button">
+        <button
+          className="btn btn-success"
+          type="button"
+          onClick={() => setTodoType('done')}
+        >
           已完成
         </button>
-        <button className="btn btn-info todo-undone" type="button">
+        <button
+          className="btn btn-info"
+          type="button"
+          onClick={() => setTodoType('undone')}
+        >
           未完成
         </button>
-        <button className="btn btn-danger todo-delete__completed" type="button">
+        <button
+          className="btn btn-danger"
+          type="button"
+          onClick={() => {
+            // setTodoType('deleteAll');
+            // 會有奇怪的 bug,當刪除全部後再新增 todo 時不會被 render 出來，
+            // 還要再點選任意 todoType 按鈕才會 render
+            setTodoList([]);
+          }}
+        >
           刪除已完成任務
         </button>
       </div>
       <ul className="list-group list-group-flush todo-list">
-        {todoList.map((element) => (
+        {filterTodoList.map((element) => (
           <TodoItem
             todo={element}
             key={element.id}
