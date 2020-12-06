@@ -141,7 +141,7 @@ function TodoList() {
             setTodoList([]);
           }}
         >
-          刪除已完成任務
+          刪除全部
         </button>
       </div>
       <ul className="list-group list-group-flush todo-list">
