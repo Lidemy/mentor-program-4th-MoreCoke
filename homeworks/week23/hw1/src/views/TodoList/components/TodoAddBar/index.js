@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { PrimaryButton } from '../../../../components/Button';
 import { TextInput } from '../../../../components/TextInput';
@@ -10,6 +11,7 @@ import {
 
 export default function TodoAddBar(props) {
   const [inputValue, setInputValue] = useState('');
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     setInputValue(e.target.value);
@@ -17,7 +19,7 @@ export default function TodoAddBar(props) {
 
   const onClick = () => {
     if (!inputValue) return;
-    props?.onClick?.(inputValue);
+    dispatch(props?.onClick?.(inputValue));
     setInputValue('');
   };
 

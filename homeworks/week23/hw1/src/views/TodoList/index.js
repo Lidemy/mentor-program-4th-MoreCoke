@@ -1,7 +1,8 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable react/jsx-one-expression-per-line */
 
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Container, FilterButtons, List } from './style';
 import TodoItem from './components/TodoItem';
@@ -12,39 +13,54 @@ import {
   InfoButton,
   DangerButton,
 } from '../../components/Button';
-import useTodo from '../../hooks/useTodo';
+import {
+  add,
+  edit,
+  del,
+  toggleDone,
+  reset,
+  updateType
+} from '../../todoSlice';
 
 function TodoList() {
-  const {
-    filterTodoList,
-    onAddTodoClick,
-    onEditTodoClick,
-    onDeleteTodoClick,
-    onToggleDoneTodoClick,
-    updateTodoType,
-    clearTodos,
-  } = useTodo();
+  const todos = useSelector(state => state.todo.todoList);
+  const todoType = useSelector(state => state.todo.todoType);
+  const dispatch = useDispatch();
+
+  const filterTodoList = useMemo(() => {
+    switch (todoType) {
+      case 'all':
+        return todos;
+      case 'done':
+        return todos.filter((element) => element.isDone);
+      case 'undone':
+        return todos.filter((element) => !element.isDone);
+      default:
+        alert('can not find todo filter type!');
+    }
+  }, [todos, todoType]);
+
   return (
     <Container>
-      <TodoAddBar onClick={onAddTodoClick} />
+      <TodoAddBar onClick={add} />
       <FilterButtons>
-        <PrimaryButton onClick={() => updateTodoType('all')}>
+        <PrimaryButton onClick={() => dispatch(updateType('all'))}>
           全部任務
         </PrimaryButton>
-        <SuccessButton onClick={() => updateTodoType('done')}>
+        <SuccessButton onClick={() => dispatch(updateType('done'))}>
           已完成
         </SuccessButton>
-        <InfoButton onClick={() => updateTodoType('undone')}>未完成</InfoButton>
-        <DangerButton onClick={clearTodos}>刪除全部</DangerButton>
+        <InfoButton onClick={() => dispatch(updateType('undone'))}>未完成</InfoButton>
+        <DangerButton onClick={() => dispatch(reset())}>刪除全部</DangerButton>
       </FilterButtons>
       <List>
         {filterTodoList.map((element) => (
           <TodoItem
             todo={element}
             key={element.id}
-            onEditTodoClick={onEditTodoClick}
-            onDeleteTodoClick={onDeleteTodoClick}
-            onToggleDoneTodoClick={onToggleDoneTodoClick}
+            onEditTodoClick={edit}
+            onDeleteTodoClick={del}
+            onToggleDoneTodoClick={toggleDone}
           />
         ))}
       </List>

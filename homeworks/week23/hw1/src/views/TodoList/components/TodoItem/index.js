@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import {
   TodoItemWrapper,
@@ -23,6 +24,7 @@ export default function TodoItem({
   onToggleDoneTodoClick,
 }) {
   const [todoEditInputValue, setTodoEditInputValue] = useState(todo.todo);
+  const dispatch = useDispatch();
 
   const onEditTodoChange = (e) => {
     setTodoEditInputValue(e.target.value);
@@ -31,7 +33,7 @@ export default function TodoItem({
   return (
     <TodoItemWrapper>
       <div className="d-flex align-items-baseline">
-        <TodoItemContent onClick={() => onToggleDoneTodoClick(todo.id)}>
+        <TodoItemContent onClick={() => dispatch(onToggleDoneTodoClick(todo.id))}>
           {/* 練習用 styled-component attr */}
           <TodoItemCheckbox defaultChecked={todo.isDone} id={todo.id} />
           <TodoItemLabel htmlFor={todo.id}>{todo.todo}</TodoItemLabel>
@@ -48,11 +50,11 @@ export default function TodoItem({
 
       <TodoItemButtons>
         <WarningButton
-          onClick={() => onEditTodoClick(todo.id, todoEditInputValue)}
+          onClick={() => dispatch(onEditTodoClick({id: todo.id, todo: todoEditInputValue}))}
         >
           {todo.isEdit ? '完成編輯' : '編輯'}
         </WarningButton>
-        <DangerButton onClick={() => onDeleteTodoClick(todo.id)}>
+        <DangerButton onClick={() => dispatch(onDeleteTodoClick(todo.id))}>
           刪除
         </DangerButton>
       </TodoItemButtons>
