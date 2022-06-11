@@ -80,7 +80,7 @@ export default function Header() {
           </Nav>
           {user && (
             <Nav to="/new-post" $active={location.pathname === '/new-post'}>
-              發布文章
+              發佈文章
             </Nav>
           )}
           <Nav to="/about" $active={location.pathname === '/about'}>
@@ -99,7 +99,11 @@ export default function Header() {
             </Nav>
           </>
         )}
-        {user && <Nav onClick={handleLogout}>登出</Nav>}
+        {user && (
+          <Nav to="/" onClick={handleLogout}>
+            登出
+          </Nav>
+        )}
       </NavbarList>
     </HeaderContainer>
   );
