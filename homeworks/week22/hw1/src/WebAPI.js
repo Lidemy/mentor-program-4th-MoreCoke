@@ -12,6 +12,21 @@ export const getPostDetail = (pid) => {
     .then((data) => data.pop());
 };
 
+export const postPost = (title, body) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+  }).then((res) => res.json());
+};
+
 export const login = (username, password) => {
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',

@@ -5,6 +5,7 @@ import SignupPage from '../../pages/SignupPage';
 import HomePage from '../../pages/HomePage';
 import AboutPage from '../../pages/AboutPage';
 import DetailPage from '../../pages/DetailPage';
+import PostPage from '../../pages/PostPage';
 import Header from '../Header';
 import { AuthContext } from '../../contexts';
 import { getMe } from '../../WebAPI';
@@ -45,8 +46,11 @@ function App() {
             <Route path="/about">
               <AboutPage />
             </Route>
-            <Route path='/posts/:pid'>
+            <Route path="/posts/:pid">
               <DetailPage />
+            </Route>
+            <Route path="/new-post">
+              <PostPage />
             </Route>
           </Switch>
         </Router>
