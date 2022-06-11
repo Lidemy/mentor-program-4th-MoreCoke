@@ -6,6 +6,12 @@ export const getPosts = () => {
   return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`).then((res) => res.json());
 };
 
+export const getPostDetail = (pid) => {
+  return fetch(`${BASE_URL}/posts?id=${pid}&_expand=user`)
+    .then((res) => res.json())
+    .then((data) => data.pop());
+};
+
 export const login = (username, password) => {
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
