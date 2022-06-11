@@ -83,6 +83,9 @@ export default function Header() {
               發布文章
             </Nav>
           )}
+          <Nav to="/about" $active={location.pathname === '/about'}>
+            關於我
+          </Nav>
         </NavbarList>
       </LeftConatiner>
       <NavbarList>

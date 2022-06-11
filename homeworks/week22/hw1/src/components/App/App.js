@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import LoginPage from '../../pages/LoginPage';
 import SignupPage from '../../pages/SignupPage';
 import HomePage from '../../pages/HomePage';
+import AboutPage from '../../pages/AboutPage';
 import Header from '../Header';
 import { AuthContext } from '../../contexts';
 import { getMe } from '../../WebAPI';
@@ -39,6 +40,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <SignupPage />
+            </Route>
+            <Route path="/about">
+              <AboutPage />
             </Route>
           </Switch>
         </Router>
