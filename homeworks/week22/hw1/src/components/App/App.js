@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import LoginPage from "../../pages/LoginPage";
-import HomePage from "../../pages/HomePage";
-import Header from "../Header";
-import { AuthContext } from "../../contexts";
-import { getMe } from "../../WebAPI";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import LoginPage from '../../pages/LoginPage';
+import SignupPage from '../../pages/SignupPage';
+import HomePage from '../../pages/HomePage';
+import Header from '../Header';
+import { AuthContext } from '../../contexts';
+import { getMe } from '../../WebAPI';
 
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 const Root = styled.div`
   padding-top: 64px;
@@ -35,6 +36,9 @@ function App() {
             </Route>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/signup">
+              <SignupPage />
             </Route>
           </Switch>
         </Router>
