@@ -49,7 +49,7 @@ export default function DetailPage() {
     getPostDetail(pid).then((res) => {
       setDetail(res);
     });
-  }, []);
+  }, [pid]);
 
   const createTime = useMemo(() => {
     return convertTimeStamp(detail.createdAt);
