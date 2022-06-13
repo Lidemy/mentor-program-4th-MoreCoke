@@ -1,18 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import { signup, getMe } from '../../WebAPI';
 import { setAuthToken } from '../../utils';
-import { AuthContext } from '../../contexts';
+import { setUser } from '../../redux/slices/userSlice';
 
 const ErrorMessage = styled.div`
   color: red;
 `;
 
 export default function SignupPage() {
-  const { setUser } = useContext(AuthContext);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [nickname, setNickname] = useState('');
   const [username, setUsername] = useState('');
@@ -32,7 +33,7 @@ export default function SignupPage() {
           setAuthToken(null);
           return setErrorMessage(response.toString());
         }
-        setUser(response.data);
+        dispatch(setUser(response.data));
         history.push('/');
       });
     });

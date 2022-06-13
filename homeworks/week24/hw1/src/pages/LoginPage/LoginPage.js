@@ -1,19 +1,20 @@
-import React, { useState, useContext } from "react";
-import styled from "styled-components";
-import { login, getMe } from "../../WebAPI";
-import { setAuthToken } from "../../utils";
-import { AuthContext } from "../../contexts";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { useHistory } from "react-router-dom";
+import { login, getMe } from '../../WebAPI';
+import { setAuthToken } from '../../utils';
+import { setUser } from '../../redux/slices/userSlice';
 
 const ErrorMessage = styled.div`
   color: red;
 `;
 
 export default function LoginPage() {
-  const { setUser } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState();
   const history = useHistory();
 
@@ -30,24 +31,19 @@ export default function LoginPage() {
           setAuthToken(null);
           return setErrorMessage(response.toString());
         }
-        setUser(response.data);
-        history.push("/");
+        dispatch(setUser(response.data));
+        history.push('/');
       });
     });
   };
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        username:{" "}
-        <input value={username} onChange={(e) => setUsername(e.target.value)} />
+        username: <input value={username} onChange={(e) => setUsername(e.target.value)} />
       </div>
       <div>
-        password{" "}
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        password{' '}
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       <button>登入</button>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

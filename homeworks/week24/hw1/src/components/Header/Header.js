@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { AuthContext } from '../../contexts';
-import { setAuthToken } from '../../utils';
-
 import { Link, useLocation, useHistory } from 'react-router-dom';
+
+import { setAuthToken } from '../../utils';
+import { selectUser, setUser } from '../../redux/slices/userSlice';
 
 const HeaderContainer = styled.div`
   height: 64px;
@@ -60,11 +61,11 @@ const LeftConatiner = styled.div`
 export default function Header() {
   const location = useLocation();
   const history = useHistory();
-  const { user, setUser } = useContext(AuthContext);
-
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const handleLogout = () => {
     setAuthToken('');
-    setUser(null);
+    dispatch(setUser(null));
     if (location.pathname !== '/') {
       history.push('/');
     }
