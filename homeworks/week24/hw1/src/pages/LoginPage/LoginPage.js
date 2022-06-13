@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { login, getMe } from '../../WebAPI';
 import { setAuthToken } from '../../utils';
-import { setUser } from '../../redux/slices/userSlice';
+import { loginAsync, getMeAsync } from '../../redux/slices/userSlice';
 
 const ErrorMessage = styled.div`
   color: red;
@@ -20,20 +19,19 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     setErrorMessage(null);
-    login(username, password).then((data) => {
+    dispatch(loginAsync(username, password)).then((data) => {
       if (data.ok === 0) {
         return setErrorMessage(data.message);
       }
       setAuthToken(data.token);
-
-      getMe().then((response) => {
-        if (response.ok !== 1) {
+      dispatch(getMeAsync())
+        .then(() => {
+          history.push('/');
+        })
+        .catch((err) => {
           setAuthToken(null);
-          return setErrorMessage(response.toString());
-        }
-        dispatch(setUser(response.data));
-        history.push('/');
-      });
+          setErrorMessage(err.toString());
+        });
     });
   };
   return (

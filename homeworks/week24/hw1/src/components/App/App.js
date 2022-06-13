@@ -9,8 +9,7 @@ import AboutPage from '../../pages/AboutPage';
 import DetailPage from '../../pages/DetailPage';
 import PostPage from '../../pages/PostPage';
 import Header from '../Header';
-import { getMe } from '../../WebAPI';
-import { setUser } from '../../redux/slices/userSlice';
+import { getMeAsync } from '../../redux/slices/userSlice';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -22,12 +21,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getMe().then((response) => {
-      if (response.ok) {
-        dispatch(setUser(response.data));
-      }
-    });
-  }, []);
+    dispatch(getMeAsync()).catch((err) => console.log('please login'));
+  }, [dispatch]);
 
   return (
     <Root>

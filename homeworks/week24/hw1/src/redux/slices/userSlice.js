@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getMe, login, signup } from '../../WebAPI';
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -15,6 +17,24 @@ export const userSlice = createSlice({
     },
   },
 });
+
+export const loginAsync = (username, password) => (dispatch, getState) => {
+  return login(username, password);
+};
+
+export const signupAsync = (nickname, username, password) => (dispatch, getState) => {
+  return signup(nickname, username, password);
+}
+
+export const getMeAsync = () => (dispatch, getState) => {
+  return getMe().then((response) => {
+    if (response.ok) {
+      dispatch(setUser(response.data));
+    } else {
+      throw new Error(response);
+    }
+  });
+};
 
 export const { setUser, setLoading } = userSlice.actions;
 
