@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { getPostDetail } from '../../WebAPI';
 import { convertTimeStamp } from '../../utils';
+import { getPostDetailAsync, selectDetail } from '../../redux/slices/postSlice';
 
 const Root = styled.div`
   width: 80%;
@@ -41,14 +42,13 @@ const Button = styled.button`
 `;
 
 export default function DetailPage() {
-  const [detail, setDetail] = useState({});
+  const dispatch = useDispatch();
+  const detail = useSelector(selectDetail);
   const { pid } = useParams();
   const history = useHistory();
 
   useEffect(() => {
-    getPostDetail(pid).then((res) => {
-      setDetail(res);
-    });
+    dispatch(getPostDetailAsync(pid));
   }, [pid]);
 
   const createTime = useMemo(() => {
@@ -63,9 +63,7 @@ export default function DetailPage() {
         <p>{`建立時間: ${createTime}`}</p>
       </SubtitleSection>
       <Content>
-        <p>
-          {detail.body}
-        </p>
+        <p>{detail.body}</p>
         <Button onClick={() => history.goBack()}>回上一頁</Button>
       </Content>
     </Root>

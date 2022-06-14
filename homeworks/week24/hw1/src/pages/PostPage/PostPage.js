@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import { postPost } from '../../WebAPI';
+import { postPostAsync } from '../../redux/slices/postSlice';
 
 const Root = styled.div`
   width: 80%;
@@ -29,6 +30,7 @@ export default function PostPage() {
   const [content, setContent] = useState('');
   const [errorMessage, setErrorMessage] = useState();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     setErrorMessage(null);
@@ -36,8 +38,8 @@ export default function PostPage() {
       setErrorMessage('不得留空');
       return;
     }
-    postPost(title, content).then((res) => {
-      console.log('data', res);
+
+    dispatch(postPostAsync(title, content)).then((res) => {
       alert('新增成功!');
       history.goBack();
     });

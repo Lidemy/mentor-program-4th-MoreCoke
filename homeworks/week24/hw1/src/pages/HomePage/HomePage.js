@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, memo, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import { getPostsByPage } from '../../WebAPI';
+import { getPostsByPageAsync, selectPosts, selectTotal } from '../../redux/slices/postSlice';
 
 const PAGE_LIMIT = 5;
 
@@ -64,25 +65,20 @@ const Pagination = memo(({ onPageChange, total }) => {
 
 Pagination.propTypes = {
   onPageChange: PropTypes.func,
-  total: PropTypes.number
-}
+  total: PropTypes.number,
+};
 
 export default function HomePage() {
-  const [posts, setPosts] = useState([]);
-  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
+  const posts = useSelector(selectPosts);
+  const total = useSelector(selectTotal);
 
   useEffect(() => {
-    getPostsByPage().then((res) => {
-      setPosts(res.posts);
-      setTotal(res.total);
-    });
+    dispatch(getPostsByPageAsync());
   }, []);
 
   const onPageChange = useCallback((currentPage) => {
-    getPostsByPage(currentPage).then((res) => {
-      setPosts(res.posts);
-      setTotal(res.total);
-    });
+    dispatch(getPostsByPageAsync(currentPage));
   }, []);
 
   return (
