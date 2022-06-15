@@ -47,6 +47,9 @@ function App() {
           <Route path="/new-post">
             <PostPage />
           </Route>
+          <Route path="/edit-post/:pid">
+            <PostPage />
+          </Route>
         </Switch>
       </Router>
     </Root>

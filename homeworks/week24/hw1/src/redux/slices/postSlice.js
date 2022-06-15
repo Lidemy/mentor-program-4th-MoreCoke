@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getPostsByPage, getPostDetail, postPost } from '../../WebAPI';
+import { getPostsByPage, getPostDetail, delPostById, editPostById, postPost } from '../../WebAPI';
 
 export const postSlice = createSlice({
   name: 'posts',
@@ -33,6 +33,14 @@ export const getPostDetailAsync = (pid) => (dispatch, getState) => {
   getPostDetail(pid).then((res) => {
     dispatch(setDetail(res));
   });
+};
+
+export const editPostByIdAsync = (pid, title, content) => (dispatch, getState) => {
+  return editPostById(pid, title, content);
+};
+
+export const delPostByIdAsync = (pid) => (dispatch, getState) => {
+  return delPostById(pid);
 };
 
 export const postPostAsync = (title, content) => (dispatch, getState) => {

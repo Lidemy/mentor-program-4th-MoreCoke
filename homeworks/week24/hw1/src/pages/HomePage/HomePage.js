@@ -75,11 +75,11 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(getPostsByPageAsync());
-  }, []);
+  }, [dispatch]);
 
   const onPageChange = useCallback((currentPage) => {
     dispatch(getPostsByPageAsync(currentPage));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Root>

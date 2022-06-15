@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { convertTimeStamp } from '../../utils';
-import { getPostDetailAsync, selectDetail } from '../../redux/slices/postSlice';
+import { setDetail,getPostDetailAsync, delPostByIdAsync, selectDetail } from '../../redux/slices/postSlice';
 
 const Root = styled.div`
   width: 80%;
@@ -49,15 +49,33 @@ export default function DetailPage() {
 
   useEffect(() => {
     dispatch(getPostDetailAsync(pid));
-  }, [pid]);
+
+    return () => dispatch(setDetail({}));
+  }, [pid, dispatch]);
 
   const createTime = useMemo(() => {
     return convertTimeStamp(detail.createdAt);
   }, [detail.createdAt]);
 
+  const onEditClick = () => {
+    history.push(`/edit-post/${pid}`);
+  };
+
+  const onDeleteClick = () => {
+    const confirmed = window.confirm('確認刪除?');
+
+    if (confirmed) {
+      dispatch(delPostByIdAsync(pid)).then(() => {
+        history.push('/');
+      });
+    }
+  };
+
   return (
     <Root>
       <Title>{detail.title}</Title>
+      <Button onClick={onEditClick}>編輯</Button>
+      <Button onClick={onDeleteClick}>刪除</Button>
       <SubtitleSection>
         <p>{`貼文者: ${detail.user?.username}`}</p>
         <p>{`建立時間: ${createTime}`}</p>

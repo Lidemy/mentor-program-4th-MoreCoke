@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { postPostAsync } from '../../redux/slices/postSlice';
+import {
+  postPostAsync,
+  editPostByIdAsync,
+  getPostDetailAsync,
+  setDetail,
+  selectDetail,
+} from '../../redux/slices/postSlice';
 
 const Root = styled.div`
   width: 80%;
@@ -30,7 +36,29 @@ export default function PostPage() {
   const [content, setContent] = useState('');
   const [errorMessage, setErrorMessage] = useState();
   const history = useHistory();
+  const { pid } = useParams();
   const dispatch = useDispatch();
+  const detail = useSelector(selectDetail);
+
+  // 如果是編輯文章，打 api 拿資料
+  useEffect(() => {
+    if (pid) {
+      dispatch(getPostDetailAsync(pid));
+    }
+
+    return () => dispatch(setDetail({}));
+  }, [pid, dispatch]);
+
+  // 處理切換頁面 input 更新問題
+  useEffect(() => {
+    if (detail && Object.keys(detail).length === 0) {
+      setTitle('');
+      setContent('');
+    } else {
+      setTitle(detail.title);
+      setContent(detail.body);
+    }
+  }, [detail]);
 
   const handleSubmit = () => {
     setErrorMessage(null);
@@ -39,9 +67,24 @@ export default function PostPage() {
       return;
     }
 
+    if (pid) {
+      editPost();
+    } else {
+      createPost();
+    }
+  };
+
+  const createPost = () => {
     dispatch(postPostAsync(title, content)).then((res) => {
       alert('新增成功!');
       history.goBack();
+    });
+  };
+
+  const editPost = () => {
+    dispatch(editPostByIdAsync(pid, title, content)).then((res) => {
+      alert('編輯成功!');
+      history.push('/');
     });
   };
 

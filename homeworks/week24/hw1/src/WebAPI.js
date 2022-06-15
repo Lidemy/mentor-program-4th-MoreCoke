@@ -18,6 +18,31 @@ export const getPostDetail = (pid) => {
     .then((data) => data.pop());
 };
 
+export const delPostById = (pid) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts/${pid}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const editPostById = (pid, title, body) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts/${pid}`, {
+    method: 'PATCH',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+  });
+};
+
 export const postPost = (title, body) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/posts`, {
