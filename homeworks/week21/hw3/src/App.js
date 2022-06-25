@@ -1,7 +1,12 @@
 import React, { useState, useCallback, useMemo } from "react";
-import styled from "styled-components";
 
 import { mailValid, phoneValid } from "./utils";
+import Input from "./components/Input";
+import Radio from "./components/Radio";
+import Form from "./components/Form";
+import Debug from "./components/Debug";
+import Footer from "./components/Footer";
+import GlobalStyle from "./globalStyle";
 
 function App() {
   const [name, setName] = useState("");
@@ -112,117 +117,105 @@ function App() {
   );
 
   return (
-    <div className="debug">
-      <form action="" className="postpone" onSubmit={onSubmit}>
-        <h1 className="postpone-title">新拖延運動報名表單</h1>
-        <div className="postpone-description">
-          活動日期：2020/12/10 ~ 2020/12/11
-          <br />
-          活動地點：台北市大安區新生南路二段1號
-        </div>
-        <span className="postpone-needed">必填</span>
-        <div className={`postpone-group ${nameWarning}`}>
-          <label className="postpone-type needed" htmlFor="name">
-            暱稱
-          </label>
-          <input
+    <>
+      <GlobalStyle />
+      <Debug isDetect={false}>
+        <Form onSubmit={onSubmit}>
+          <h1 className="postpone-title">新拖延運動報名表單</h1>
+          <div className="postpone-description">
+            活動日期：2020/12/10 ~ 2020/12/11
+            <br />
+            活動地點：台北市大安區新生南路二段1號
+          </div>
+          <span className="postpone-needed">必填</span>
+          <Input
             type="text"
             name="name"
             id="name"
             placeholder="您的回答"
             value={name}
             onChange={onNameChange}
+            label="暱稱"
+            required
+            status={nameWarning}
+            message="請填入暱稱"
           />
-          <p className="message">請填入暱稱</p>
-        </div>
-        <div className={`postpone-group ${mailWarning}`}>
-          <label className="postpone-type needed" htmlFor="mail">
-            電子郵件
-          </label>
-          <input
+          <Input
             type="email"
             name="mail"
             id="mail"
             placeholder="您的電子郵件"
             value={mail}
             onChange={onMailChange}
+            label="電子郵件"
+            required
+            status={mailWarning}
+            message="請填入正確郵件格式"
           />
-          <p className="message">請填入正確郵件格式</p>
-        </div>
-        <div className={`postpone-group ${phoneWarning}`}>
-          <label className="postpone-type needed" htmlFor="phone">
-            手機號碼
-          </label>
-          <input
+          <Input
             type="number"
             name="phone"
             id="phone"
             placeholder="您的手機號碼"
             value={phone}
             onChange={onPhoneChange}
+            label="手機號碼"
+            required
+            status={phoneWarning}
+            message="請填入正確號碼格式(十碼)"
           />
-          <p className="message">請填入正確號碼格式(十碼)</p>
-        </div>
-        <div className={`postpone-group ${activityWarning}`}>
-          <p className="postpone-type needed">報名類型</p>
-          <label htmlFor="bed" className="mb-23">
-            <input
-              type="radio"
+          <Radio.Group
+            required
+            status={activityWarning}
+            title="報名類型"
+            message="請選擇報名類型"
+          >
+            <Radio
               name="activity"
               id="bed"
               value="躺在床上用想像力實作"
               onChange={onActivityChange}
+              label="躺在床上用想像力實作"
             />
-            躺在床上用想像力實作
-          </label>
-          <label htmlFor="ground">
-            <input
-              type="radio"
+            <Radio
               name="activity"
               id="ground"
               value="趴在地上滑手機找現成的"
               onChange={onActivityChange}
+              label="趴在地上滑手機找現成的"
             />
-            趴在地上滑手機找現成的
-          </label>
-          <p className="message">請選擇報名類型</p>
-        </div>
-        <div className={`postpone-group ${understandingWarning}`}>
-          <label className="postpone-type needed" htmlFor="understanding">
-            怎麼知道這個活動的？
-          </label>
-          <input
+          </Radio.Group>
+          <Input
             type="text"
             name="understanding"
             id="understanding"
             placeholder="您的回答"
             value={understanding}
             onChange={onUnstandingChange}
+            label="怎麼知道這個活動的？"
+            required
+            status={understandingWarning}
+            message="不得留空!"
           />
-          <p className="message">不得留空!</p>
-        </div>
-        <div className="postpone-group">
-          <label className="postpone-type" htmlFor="other">
-            其他
-          </label>
-          <p className="postpone-advise">對活動的一些建議</p>
-          <input
+          <Input
             type="text"
             name="other"
             id="other"
             placeholder="您的回答"
             value={other}
             onChange={onOtherChange}
+            label="其他"
+            subtitle="對活動的一些建議"
           />
-        </div>
 
-        <button className="postpone-btn" type="submit">
-          提交
-        </button>
-        <p className="mt-21">請勿透過表單送出您的密碼。</p>
-      </form>
-      <footer>© 2020 © Copyright. All rights Reserved.</footer>
-    </div>
+          <button className="postpone-btn" type="submit">
+            提交
+          </button>
+          <p className="mt-21">請勿透過表單送出您的密碼。</p>
+        </Form>
+        <Footer>© 2020 © Copyright. All rights Reserved.</Footer>
+      </Debug>
+    </>
   );
 }
 
