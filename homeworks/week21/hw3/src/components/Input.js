@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Row, RowTitle, Warning } from './style';
 
@@ -7,9 +8,6 @@ const Subtitle = styled.p`
 font-size: 14px;
 margin-bottom: 24px;
 `;
-
-
-
 
 export default function Input(props) {
   const {
@@ -27,7 +25,7 @@ export default function Input(props) {
   } = props;
   return (
     <Row required={required} status={status}>
-      <RowTitle required={required}htmlFor={name}>{label}</RowTitle>
+      <RowTitle required={required} htmlFor={name}>{label}</RowTitle>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
       <input
         type={type}
@@ -40,3 +38,17 @@ export default function Input(props) {
       <Warning status={status}>{message}</Warning>
     </Row>)
 }
+
+Input.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  label: PropTypes.string,
+  required: PropTypes.bool,
+  status: PropTypes.string,
+  message: PropTypes.string,
+  subtitle: PropTypes.string
+};

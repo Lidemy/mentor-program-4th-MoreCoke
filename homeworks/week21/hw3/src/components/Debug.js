@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledDebug = styled.div`
 ${props => props.isDetect && `
@@ -19,3 +20,8 @@ export default function Debug({ children, isDetect }) {
     </StyledDebug>
   )
 }
+
+Debug.propTypes = {
+  isDetect: PropTypes.bool,
+  children: PropTypes.any
+};

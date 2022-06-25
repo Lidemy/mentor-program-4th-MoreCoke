@@ -52,47 +52,29 @@ function App() {
     );
   }, [mail, phone, name, activity, understanding]);
 
-  const onNameChange = useCallback(
-    (e) => {
-      setName(e.target.value);
-    },
-    [name]
-  );
+  const onNameChange = useCallback((e) => {
+    setName(e.target.value);
+  }, []);
 
-  const onMailChange = useCallback(
-    (e) => {
-      setMail(e.target.value);
-    },
-    [mail]
-  );
+  const onMailChange = useCallback((e) => {
+    setMail(e.target.value);
+  }, []);
 
-  const onPhoneChange = useCallback(
-    (e) => {
-      setPhone(e.target.value);
-    },
-    [phone]
-  );
+  const onPhoneChange = useCallback((e) => {
+    setPhone(e.target.value);
+  }, []);
 
-  const onActivityChange = useCallback(
-    (e) => {
-      setActivity(e.target.value);
-    },
-    [activity]
-  );
+  const onActivityChange = useCallback((e) => {
+    setActivity(e.target.value);
+  }, []);
 
-  const onUnstandingChange = useCallback(
-    (e) => {
-      setUnderstanding(e.target.value);
-    },
-    [understanding]
-  );
+  const onUnstandingChange = useCallback((e) => {
+    setUnderstanding(e.target.value);
+  }, []);
 
-  const onOtherChange = useCallback(
-    (e) => {
-      setOther(e.target.value);
-    },
-    [other]
-  );
+  const onOtherChange = useCallback((e) => {
+    setOther(e.target.value);
+  }, []);
 
   const onSubmit = useCallback(
     (e) => {
@@ -113,7 +95,16 @@ function App() {
         alert("資料尚未填寫或資料格式錯誤");
       }
     },
-    [isConfirmed, name, mail, phone, activity, understanding, other]
+    [
+      isConfirmed,
+      name,
+      mail,
+      phone,
+      activity,
+      understanding,
+      other,
+      hasSubmited,
+    ]
   );
 
   return (

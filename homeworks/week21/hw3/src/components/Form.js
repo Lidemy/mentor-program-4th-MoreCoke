@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledForm = styled.form`
 box-sizing: border-box;
@@ -64,3 +65,8 @@ export default function Form({ children, onSubmit }) {
     </StyledForm>
   )
 }
+
+Form.propTypes = {
+  onSubmit: PropTypes.func,
+  children: PropTypes.any
+};
