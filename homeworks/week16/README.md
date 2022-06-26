@@ -40,24 +40,24 @@ for(var i=0; i<5; i++) {
 ``` js
 var a = 1
 function fn(){
-  console.log(a)
+  console.log('1. ', a)
   var a = 5
-  console.log(a)
+  console.log('2. ', a)
   a++
   var a
   fn2()
-  console.log(a)
+  console.log('4.', a)
   function fn2(){
-    console.log(a)
+    console.log('3. ', a)
     a = 20
     b = 100
   }
 }
 fn()
-console.log(a)
+console.log('5. ', a)
 a = 10
-console.log(a)
-console.log(b)
+console.log('6. ', a)
+console.log('7. ', b)
 ```
 
 請將答案寫在 [hw3.md](hw3.md)。
